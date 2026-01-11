@@ -84,30 +84,40 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        AOS.init();
-        new Swiper(".mySwiper", { effect: "coverflow", grabCursor: true, centeredSlides: true, slidesPerView: "auto", loop: true, autoplay: { delay: 2500 }, coverflowEffect: { rotate: 30, stretch: 0, depth: 100, modifier: 1, slideShadows: true } });
+       
+    document.getElementById('rsvp-form').addEventListener("submit", function(e) {
+        e.preventDefault();
+        const btn = document.getElementById('submit-btn');
+        const successMsg = document.getElementById('success-msg');
+        
+        btn.innerHTML = "INVIANDO...";
+        btn.disabled = true;
 
-        document.getElementById('rsvp-form').addEventListener("submit", function(e) {
-            e.preventDefault();
-            const btn = document.getElementById('submit-btn');
-            btn.innerHTML = "INVIANDO...";
-            btn.disabled = true;
+        // INCOLLA QUI SOTTO IL TUO URL DI GOOGLE APPS SCRIPT
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbx7HPTQ-piP7fv6KNUNo7ARdDyhrFoNOfUd0OIoRJk1pIvHfzvM_pUqZrtsCcYTrUQK4A/exec'; 
 
-            fetch("https://sheetdb.io/api/v1/dn2d8895jbdvz", {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    data: [
-                        {
-                            "Nome": document.getElementById('nome').value,
-                            "Partecipa": document.getElementById('partecipa').value,
-                            "Canzone": document.getElementById('canzone').value
-                        }
-                    ]
-                })
+        fetch(scriptURL, {
+            method: "POST",
+            mode: 'no-cors', // Importante per Google Script
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                "Nome": document.getElementById('nome').value,
+                "Partecipa": document.getElementById('partecipa').value,
+                "Canzone": document.getElementById('canzone').value
             })
-            
+        })
+        .then(() => {
+            // Con 'no-cors' non possiamo leggere la risposta, 
+            // quindi ipotizziamo il successo se non c'è errore di rete
+            document.getElementById('rsvp-form').style.display = 'none';
+            successMsg.style.display = 'block';
+        })
+        .catch(err => {
+            alert("Errore invio.");
+            btn.disabled = false;
         });
+    });
+
     </script>
 </body>
 </html>
