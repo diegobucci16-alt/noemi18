@@ -98,47 +98,55 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-    <script>
-        // Avvia tutto solo quando la pagina è pronta
-        window.addEventListener('load', () => {
-            if (typeof AOS !== 'undefined') AOS.init();
-            if (typeof Swiper !== 'undefined') {
-                new Swiper(".mySwiper", {
-                    effect: "coverflow",
-                    centeredSlides: true,
-                    slidesPerView: "auto",
-                    loop: true,
-                    autoplay: { delay: 2500 }
-                });
-            }
-        });
-
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMH2tSRZg69niY8ib7x9v_fwF1KF_XMKpbzkYJA3zo9O2zc22fD0cQwJg8AazOeNtI0Q/exec';
-        const form = document.getElementById('rsvp-form');
-
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            const btn = document.getElementById('submit-btn');
-            btn.innerHTML = "INVIANDO...";
-            btn.disabled = true;
-
-            fetch(SCRIPT_URL, { 
-                method: 'POST', 
-                body: new FormData(form),
-                mode: 'no-cors' 
-            })
-            .then(() => {
-                alert("Inviato a Noemi! ✅");
-                form.style.display = 'none';
-                document.getElementById('success-msg').style.display = 'block';
-            })
-            .catch(() => {
-                alert("Errore, riprova!");
-                btn.disabled = false;
-                btn.innerHTML = "INVIA RISPOSTA ⚡️";
+   <script>
+    // Caricamento Grafica
+    window.addEventListener('DOMContentLoaded', () => {
+        if (typeof AOS !== 'undefined') AOS.init({ duration: 1000, once: true });
+        if (typeof Swiper !== 'undefined') {
+            new Swiper(".mySwiper", {
+                effect: "coverflow",
+                centeredSlides: true,
+                slidesPerView: "auto",
+                loop: true,
+                autoplay: { delay: 2500 }
             });
+        }
+    });
+
+    // INVIO DATI - IL CUORE DEL PROBLEMA
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMH2tSRZg69niY8ib7x9v_fwF1KF_XMKpbzkYJA3zo9O2zc22fD0cQwJg8AazOeNtI0Q/exec';
+    const form = document.getElementById('rsvp-form');
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        const btn = document.getElementById('submit-btn');
+        btn.innerHTML = "INVIANDO... ⏳";
+        btn.disabled = true;
+
+        // Recuperiamo i valori
+        const nome = document.getElementById('nome').value;
+        const partecipa = document.getElementById('partecipa').value;
+        const canzone = document.getElementById('canzone').value;
+
+        // Creiamo il link di invio (più sicuro per Google Sheets)
+        const finalURL = SCRIPT_URL + 
+                         "?Nome=" + encodeURIComponent(nome) + 
+                         "&Partecipa=" + encodeURIComponent(partecipa) + 
+                         "&Canzone=" + encodeURIComponent(canzone);
+
+        fetch(finalURL, { method: 'POST', mode: 'no-cors' })
+        .then(() => {
+            alert("GRANDE DIEGO! Inviato correttamente a Noemi. ✅");
+            form.style.display = 'none';
+            document.getElementById('success-msg').style.display = 'block';
+        })
+        .catch(err => {
+            alert("C'è un problema di connessione. Riprova!");
+            btn.disabled = false;
+            btn.innerHTML = "INVIA RISPOSTA ⚡️";
         });
-    </script>
+    });
+</script>
    
 </body>
 </html>
