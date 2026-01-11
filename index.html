@@ -128,11 +128,11 @@
             // QUESTA RIGA MANCAVA NEL TUO CODICE:
             const finalURL = SCRIPT_URL + "?Nome=" + encodeURIComponent(nome) + "&Partecipa=" + encodeURIComponent(partecipa) + "&Canzone=" + encodeURIComponent(canzone);
 
-            fetch(finalURL, { method: 'POST', mode: 'no-cors' })
+            fetch(finalURL)
             .then(() => {
                 alert("Inviato correttamente! ✅");
-                form.style.display = 'none';
-                document.getElementById('success-msg').style.display = 'block';
+                 form.style.display = 'none';
+                 document.getElementById('success-msg').style.display = 'block';
             })
             .catch(() => {
                 alert("Errore di rete!");
@@ -140,6 +140,7 @@
                 btn.innerHTML = "INVIA RISPOSTA ⚡️";
             });
         });
+
     </script>
    
 </body>
