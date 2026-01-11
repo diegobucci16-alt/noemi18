@@ -128,12 +128,7 @@
         const partecipa = document.getElementById('partecipa').value;
         const canzone = document.getElementById('canzone').value;
 
-        // Creiamo il link di invio (più sicuro per Google Sheets)
-        const finalURL = SCRIPT_URL + 
-                         "?Nome=" + encodeURIComponent(nome) + 
-                         "&Partecipa=" + encodeURIComponent(partecipa) + 
-                         "&Canzone=" + encodeURIComponent(canzone);
-
+      
         fetch(finalURL, { method: 'POST', mode: 'no-cors' })
         .then(() => {
             alert("GRANDE DIEGO! Inviato correttamente a Noemi. ✅");
