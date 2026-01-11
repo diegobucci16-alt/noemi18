@@ -13,20 +13,25 @@
         :root { --blu: #0047FF; --argento: #C0C0C0; --nero: #000000; --grigio-scuro: #0a0a0a; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body {
-    background-color: var(--nero);
-    color: white;
-    font-family: 'Montserrat', sans-serif;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
+   
     position: relative; /* 👈 FIX FONDAMENTALE */
 }
 
-        .bg-glow {
-    pointer-events: none;
+      .bg-glow {
+    position: absolute;      /* 👈 CHIAVE */
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;       /* 👈 invece di height */
+    background: radial-gradient(circle at 50% 50%, #001133 0%, #000 80%);
+    z-index: 0;
 }
-        
-        header { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; }
+
+ header, section, .swiper {
+    position: relative;
+    z-index: 2;
+}
+
         h1 { font-family: 'Syncopate', sans-serif; font-size: 3.5rem; margin: 0; background: linear-gradient(to bottom, #fff, var(--blu)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 15px rgba(0, 71, 255, 0.5)); }
         .date-badge { background: var(--blu); padding: 8px 20px; border-radius: 50px; font-weight: 800; letter-spacing: 2px; margin-bottom: 20px; box-shadow: 0 0 20px var(--blu); }
 
