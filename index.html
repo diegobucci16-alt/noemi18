@@ -106,16 +106,7 @@
                     ]
                 })
             })
-            .then(res => {
-                if(res.ok) {
-                    document.getElementById('rsvp-form').style.display = 'none';
-                    document.getElementById('success-msg').style.display = 'block';
-                } else {
-                    alert("Errore Server. Controlla i permessi su SheetDB.");
-                    btn.disabled = false; btn.innerHTML = "RIPROVA";
-                }
-            })
-            .catch(() => { alert("Errore connessione."); btn.disabled = false; });
+            
         });
     </script>
 </body>
