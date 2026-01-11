@@ -101,33 +101,46 @@
     <script>
        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMH2tSRZg69niY8ib7x9v_fwF1KF_XMKpbzkYJA3zo9O2zc22fD0cQwJg8AazOeNtI0Q/exec';
 
-form.addEventListener('submit', e => {
-    e.preventDefault();
-    btn.disabled = true;
-    btn.innerHTML = "INVIANDO... ⏳";
+        window.addEventListener('load', () => {
+            if (typeof AOS !== 'undefined') AOS.init();
+            if (typeof Swiper !== 'undefined') {
+                new Swiper(".mySwiper", {
+                    effect: "coverflow",
+                    centeredSlides: true,
+                    slidesPerView: "auto",
+                    loop: true,
+                    autoplay: { delay: 2500 }
+                });
+            }
+        });
 
-    const formData = new FormData();
-    // Usiamo le maiuscole come nello script di Google sopra
-    formData.append('Nome', document.getElementById('nome').value);
-    formData.append('Partecipa', document.getElementById('partecipa').value);
-    formData.append('Canzone', document.getElementById('canzone').value);
+        form.addEventListener('submit', e => {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.innerHTML = "INVIANDO... ⏳";
 
-    fetch(SCRIPT_URL, { 
-        method: 'POST', 
-        body: formData,
-        mode: 'no-cors' 
-    })
-    .then(() => {
-        alert("Perfetto Diego! La conferma è arrivata sul foglio di Noemi! ✅");
-        form.style.display = 'none';
-        successMsg.style.display = 'block';
-    })
-    .catch(error => {
-        alert("Errore tecnico. Controlla il link dello script!");
-        btn.disabled = false;
-        btn.innerHTML = "INVIA RISPOSTA ⚡️";
+        const formData = new FormData();
+        // Usiamo le maiuscole come nello script di Google sopra
+         formData.append('Nome', document.getElementById('nome').value);
+         formData.append('Partecipa', document.getElementById('partecipa').value);
+         formData.append('Canzone', document.getElementById('canzone').value);
+
+        fetch(SCRIPT_URL, { 
+            method: 'POST', 
+         body: formData,
+            mode: 'no-cors' 
+        })
+        .then(() => {
+            alert("Perfetto Diego! La conferma è arrivata sul foglio di Noemi! ✅");
+            form.style.display = 'none';
+            successMsg.style.display = 'block';
+        })
+        .catch(error => {
+            alert("Errore tecnico. Controlla il link dello script!");
+            btn.disabled = false;
+            btn.innerHTML = "INVIA RISPOSTA ⚡️";
+        });
     });
-});
     </script>
 </body>
 </html>
