@@ -60,10 +60,7 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        AOS.init();
-        new Swiper(".mySwiper", { effect: "coverflow", grabCursor: true, centeredSlides: true, slidesPerView: "auto", loop: true, autoplay: { delay: 2500 } });
-
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbx7HPTQ-piP7fv6KNUNo7ARdDyhrFoNOfUd0OIoRJk1pIvHfzvM_pUqZrtsCcYTrUQK4A/exec';
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzMH2tSRZg69niY8ib7x9v_fwF1KF_XMKpbzkYJA3zo9O2zc22fD0cQwJg8AazOeNtI0Q/exec';
         const form = document.getElementById('rsvp-form');
 
         form.addEventListener('submit', e => {
@@ -72,17 +69,14 @@
             btn.innerHTML = "INVIANDO...";
             btn.disabled = true;
 
-            fetch(scriptURL, { 
-                method: 'POST', 
-                body: new FormData(form)
-            })
+            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
             .then(response => {
-                alert("Ciao! La tua risposta è stata inviata correttamente! ✅");
+                alert("Invio completato con successo! ✅");
                 form.style.display = 'none';
                 document.getElementById('success-msg').style.display = 'block';
             })
             .catch(error => {
-                alert("C'è stato un errore. Riprova!");
+                alert("Errore! Riprova.");
                 btn.innerHTML = "INVIA RISPOSTA ⚡️";
                 btn.disabled = false;
             });
