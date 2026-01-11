@@ -95,62 +95,52 @@
         </div>
     </section>
 
-    <script>
-    // Inizializzazione Grafica
-    window.addEventListener('DOMContentLoaded', () => {
-        if (typeof AOS !== 'undefined') AOS.init({ duration: 1000, once: true });
-        if (typeof Swiper !== 'undefined') {
-            new Swiper(".mySwiper", {
-                effect: "coverflow",
-                centeredSlides: true,
-                slidesPerView: "auto",
-                loop: true,
-                autoplay: { delay: 2500 }
+   <script>
+        // 1. Inizializzazione Grafica
+        window.onload = () => {
+            if (typeof AOS !== 'undefined') AOS.init({ duration: 1000 });
+            if (typeof Swiper !== 'undefined') {
+                new Swiper(".mySwiper", {
+                    effect: "coverflow",
+                    centeredSlides: true,
+                    slidesPerView: "auto",
+                    loop: true,
+                    autoplay: { delay: 2500 }
+                });
+            }
+        };
+
+        // 2. INVIO DATI - QUI C'ERA L'ERRORE
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMH2tSRZg69niY8ib7x9v_fwF1KF_XMKpbzkYJA3zo9O2zc22fD0cQwJg8AazOeNtI0Q/exec';
+        
+        const form = document.getElementById('rsvp-form');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            btn.innerHTML = "INVIANDO...";
+            btn.disabled = true;
+
+            const nome = document.getElementById('nome').value;
+            const partecipa = document.getElementById('partecipa').value;
+            const canzone = document.getElementById('canzone').value;
+
+            // QUESTA RIGA MANCAVA NEL TUO CODICE:
+            const finalURL = SCRIPT_URL + "?Nome=" + encodeURIComponent(nome) + "&Partecipa=" + encodeURIComponent(partecipa) + "&Canzone=" + encodeURIComponent(canzone);
+
+            fetch(finalURL, { method: 'POST', mode: 'no-cors' })
+            .then(() => {
+                alert("Inviato correttamente! ✅");
+                form.style.display = 'none';
+                document.getElementById('success-msg').style.display = 'block';
+            })
+            .catch(() => {
+                alert("Errore di rete!");
+                btn.disabled = false;
+                btn.innerHTML = "INVIA RISPOSTA ⚡️";
             });
-        }
-    });
-
-    // SCRIVI QUI IL TUO NUOVO LINK APPENA COPIATO
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMH2tSRZg69niY8ib7x9v_fwF1KF_XMKpbzkYJA3zo9O2zc22fD0cQwJg8AazOeNtI0Q/exec';
-
-    const form = document.getElementById('rsvp-form');
-
-    form.addEventListener('submit', e => {
-        e.preventDefault();
-        const btn = document.getElementById('submit-btn');
-        btn.innerHTML = "INVIANDO... ⏳";
-        btn.disabled = true;
-
-        // 1. Recuperiamo i valori dai campi
-        const nomeValue = document.getElementById('nome').value;
-        const partecipaValue = document.getElementById('partecipa').value;
-        const canzoneValue = document.getElementById('canzone').value;
-
-        // 2. CREIAMO IL LINK (Questa era la riga mancante!)
-        const finalURL = SCRIPT_URL + 
-                         "?Nome=" + encodeURIComponent(nomeValue) + 
-                         "&Partecipa=" + encodeURIComponent(partecipaValue) + 
-                         "&Canzone=" + encodeURIComponent(canzoneValue);
-
-        // 3. Spediamo i dati
-        fetch(finalURL, { 
-            method: 'POST', 
-            mode: 'no-cors' 
-        })
-        .then(() => {
-            // Se arriviamo qui, i dati sono partiti
-            alert("GRANDE DIEGO! Dati inviati correttamente. ✅");
-            form.style.display = 'none';
-            document.getElementById('success-msg').style.display = 'block';
-        })
-        .catch(err => {
-            console.error(err);
-            alert("Errore di rete. Controlla la connessione!");
-            btn.disabled = false;
-            btn.innerHTML = "INVIA RISPOSTA ⚡️";
         });
-    });
-</script>
+    </script>
    
 </body>
 </html>
