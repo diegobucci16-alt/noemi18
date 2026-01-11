@@ -136,21 +136,21 @@
 
     <div class="swiper mySwiper" data-aos="fade-up">
         <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="image.png" alt="Noemi 1"></div>
-            <div class="swiper-slide"><img src="noemi1.jpeg" alt="Noemi 2"></div>
-            <div class="swiper-slide"><img src="noemi3.jpeg" alt="Noemi 3"></div>
-            <div class="swiper-slide"><img src="noemiq4.jpeg" alt="Noemi 4"></div>
-            <div class="swiper-slide"><img src="diego2.jpeg" alt="Noemi 5"></div>
-            <div class="swiper-slide"><img src="noemi5.jpeg" alt="Noemi 6"></div>
-            <div class="swiper-slide"><img src="noemi6.jpeg" alt="Noemi 7"></div>
-            <div class="swiper-slide"><img src="noemi7.jpeg" alt="Noemi 8"></div>
+            <div class="swiper-slide"><img src="image.png" alt="Foto 1"></div>
+            <div class="swiper-slide"><img src="noemi1.jpeg" alt="Foto 2"></div>
+            <div class="swiper-slide"><img src="noemi3.jpeg" alt="Foto 3"></div>
+            <div class="swiper-slide"><img src="noemiq4.jpeg" alt="Foto 4"></div>
+            <div class="swiper-slide"><img src="diego2.jpeg" alt="Foto 5"></div>
+            <div class="swiper-slide"><img src="noemi5.jpeg" alt="Foto 6"></div>
+            <div class="swiper-slide"><img src="noemi6.jpeg" alt="Foto 7"></div>
+            <div class="swiper-slide"><img src="noemi7.jpeg" alt="Foto 8"></div>
         </div>
     </div>
 
     <section class="section-card" data-aos="fade-up">
         <h2 style="color: var(--blu);">📍 LOCATION</h2>
         <p>Ospedaletto (Rimini)<br>Via della Festa, 18</p>
-        <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2864.545!2d12.55!3d43.99!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132ce0!2sOspedaletto%20RN!5e0!3m2!1sit!2sit!4v1700000000000"></iframe>
+        <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2864.733074092497!2d12.5807986!3d43.9856163!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132cf934248e8525%3A0x928ca224ff0dcd2e!2s47853%20Ospedaletto%20RN!5e0!3m2!1sit!2sit!4v1700000000000!5m2!1sit!2sit"></iframe>
     </section>
 
     <section class="section-card" data-aos="fade-up" style="background: linear-gradient(145deg, #050505, #111);">
@@ -210,9 +210,8 @@
             btn.innerHTML = "INVIANDO... ⏳";
             btn.disabled = true;
 
-            const sheetDB_URL = "https://sheetdb.io/api/v1/dn2d8895jbdvz"; 
-
-            fetch(sheetDB_URL, {
+            // INVIO DIRETTO SENZA CONTROLLI AGGIUNTIVI
+            fetch("https://sheetdb.io/api/v1/dn2d8895jbdvz", {
                 method: "POST",
                 headers: { 
                     'Accept': 'application/json',
@@ -233,7 +232,7 @@
                     form.style.display = 'none';
                     successMsg.style.display = 'block';
                 } else {
-                    alert("Errore 405/400: Controlla che su SheetDB sia attivo il tasto CREATE.");
+                    alert("Errore invio dati. Controlla SheetDB.");
                     btn.disabled = false;
                     btn.innerHTML = "RIPROVA ⚡️";
                 }
