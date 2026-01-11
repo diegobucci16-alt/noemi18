@@ -95,11 +95,8 @@
         </div>
     </section>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-   <script>
-    // Caricamento Grafica
+    <script>
+    // Inizializzazione Grafica
     window.addEventListener('DOMContentLoaded', () => {
         if (typeof AOS !== 'undefined') AOS.init({ duration: 1000, once: true });
         if (typeof Swiper !== 'undefined') {
@@ -113,8 +110,9 @@
         }
     });
 
-    // INVIO DATI - IL CUORE DEL PROBLEMA
+    // SCRIVI QUI IL TUO NUOVO LINK APPENA COPIATO
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMH2tSRZg69niY8ib7x9v_fwF1KF_XMKpbzkYJA3zo9O2zc22fD0cQwJg8AazOeNtI0Q/exec';
+
     const form = document.getElementById('rsvp-form');
 
     form.addEventListener('submit', e => {
@@ -123,20 +121,31 @@
         btn.innerHTML = "INVIANDO... ⏳";
         btn.disabled = true;
 
-        // Recuperiamo i valori
-        const nome = document.getElementById('nome').value;
-        const partecipa = document.getElementById('partecipa').value;
-        const canzone = document.getElementById('canzone').value;
+        // 1. Recuperiamo i valori dai campi
+        const nomeValue = document.getElementById('nome').value;
+        const partecipaValue = document.getElementById('partecipa').value;
+        const canzoneValue = document.getElementById('canzone').value;
 
-      
-        fetch(finalURL, { method: 'POST', mode: 'no-cors' })
+        // 2. CREIAMO IL LINK (Questa era la riga mancante!)
+        const finalURL = SCRIPT_URL + 
+                         "?Nome=" + encodeURIComponent(nomeValue) + 
+                         "&Partecipa=" + encodeURIComponent(partecipaValue) + 
+                         "&Canzone=" + encodeURIComponent(canzoneValue);
+
+        // 3. Spediamo i dati
+        fetch(finalURL, { 
+            method: 'POST', 
+            mode: 'no-cors' 
+        })
         .then(() => {
-            alert("GRANDE DIEGO! Inviato correttamente a Noemi. ✅");
+            // Se arriviamo qui, i dati sono partiti
+            alert("GRANDE DIEGO! Dati inviati correttamente. ✅");
             form.style.display = 'none';
             document.getElementById('success-msg').style.display = 'block';
         })
         .catch(err => {
-            alert("C'è un problema di connessione. Riprova!");
+            console.error(err);
+            alert("Errore di rete. Controlla la connessione!");
             btn.disabled = false;
             btn.innerHTML = "INVIA RISPOSTA ⚡️";
         });
