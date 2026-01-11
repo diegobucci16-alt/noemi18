@@ -99,52 +99,35 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
-        // 1. INIZIALIZZAZIONE GRAFICA (Evita lo schermo blu)
-        AOS.init({ duration: 1000, once: true });
-        
-        new Swiper(".mySwiper", {
-            effect: "coverflow",
-            grabCursor: true,
-            centeredSlides: true,
-            slidesPerView: "auto",
-            loop: true,
-            autoplay: { delay: 2500, disableOnInteraction: false },
-            coverflowEffect: { rotate: 30, stretch: 0, depth: 100, modifier: 1, slideShadows: true }
-        });
+       const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMH2tSRZg69niY8ib7x9v_fwF1KF_XMKpbzkYJA3zo9O2zc22fD0cQwJg8AazOeNtI0Q/exec';
 
-        // 2. INVIO DATI PROFESSIONALE
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMH2tSRZg69niY8ib7x9v_fwF1KF_XMKpbzkYJA3zo9O2zc22fD0cQwJg8AazOeNtI0Q/exec';
-        const form = document.getElementById('rsvp-form');
-        const btn = document.getElementById('submit-btn');
-        const successMsg = document.getElementById('success-msg');
+form.addEventListener('submit', e => {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.innerHTML = "INVIANDO... ⏳";
 
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            btn.disabled = true;
-            btn.innerHTML = "INVIANDO...";
+    const formData = new FormData();
+    // Usiamo le maiuscole come nello script di Google sopra
+    formData.append('Nome', document.getElementById('nome').value);
+    formData.append('Partecipa', document.getElementById('partecipa').value);
+    formData.append('Canzone', document.getElementById('canzone').value);
 
-            // Creiamo l'oggetto dati pulito
-            const formData = new FormData();
-            formData.append('Nome', document.getElementById('nome').value);
-            formData.append('Partecipa', document.getElementById('partecipa').value);
-            formData.append('Canzone', document.getElementById('canzone').value);
-
-            fetch(SCRIPT_URL, { 
-                method: 'POST', 
-                body: formData,
-                mode: 'no-cors' // Necessario per Google Script
-            })
-            .then(() => {
-                alert("Ciao! La tua conferma è stata inviata a Noemi! ✅");
-                form.style.display = 'none';
-                successMsg.style.display = 'block';
-            })
-            .catch(error => {
-                alert("Errore durante l'invio. Riprova!");
-                btn.disabled = false;
-                btn.innerHTML = "INVIA RISPOSTA ⚡️";
-            });
-        });
+    fetch(SCRIPT_URL, { 
+        method: 'POST', 
+        body: formData,
+        mode: 'no-cors' 
+    })
+    .then(() => {
+        alert("Perfetto Diego! La conferma è arrivata sul foglio di Noemi! ✅");
+        form.style.display = 'none';
+        successMsg.style.display = 'block';
+    })
+    .catch(error => {
+        alert("Errore tecnico. Controlla il link dello script!");
+        btn.disabled = false;
+        btn.innerHTML = "INVIA RISPOSTA ⚡️";
+    });
+});
     </script>
 </body>
 </html>
