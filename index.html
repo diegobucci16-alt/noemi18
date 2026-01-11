@@ -211,16 +211,26 @@
             coverflowEffect: { rotate: 30, stretch: 0, depth: 100, modifier: 1, slideShadows: true },
         });
 
-        // INVIO DATI A GOOGLE SHEET (EXCEL)
         const form = document.getElementById('rsvp-form');
         form.addEventListener("submit", e => {
             e.preventDefault();
             const btn = document.getElementById('submit-btn');
-            btn.innerHTML = "SALVATAGGIO...";
+            const successMsg = document.getElementById('success-msg');
+            
+            // Stato iniziale invio
+            btn.innerHTML = "INVIANDO... ⏳";
             btn.disabled = true;
 
-            // --- INCOLLA QUI SOTTO IL TUO LINK DI SHEETDB ---
-            const sheetDB_URL = "https://sheetdb.io/api/v1/v3h61vbjkh5mg"; 
+            // --- IL TUO LINK SHEETDB ---
+            const sheetDB_URL = "INCOLLA_QUI_IL_TUO_LINK_SHEETDB"; 
+
+            // Controllo sicurezza se dimentichi il link
+            if(sheetDB_URL.includes("https://sheetdb.io/api/v1/fqu7yzlrbst6b")) {
+                alert("Attenzione: Non hai inserito il link di SheetDB nel codice!");
+                btn.disabled = false;
+                btn.innerHTML = "INVIA RISPOSTA ⚡️";
+                return;
+            }
 
             fetch(sheetDB_URL, {
                 method: "POST",
@@ -228,24 +238,32 @@
                 body: JSON.stringify({
                     data: [
                         {
-                            Nome: document.getElementById('nome').value,
-                            Partecipa: document.getElementById('chi ce').value,
-                            Canzone: document.getElementById('canzone').value
+                            "Nome": document.getElementById('nome').value,
+                            "Partecipa": document.getElementById('partecipa').value,
+                            "Canzone": document.getElementById('canzone').value
                         }
                     ]
                 })
-            }).then(res => {
+            })
+            .then(res => {
                 if(res.ok) {
+                    // SUCCESSO
+                    console.log("Dati inviati con successo!");
                     form.style.display = 'none';
-                    document.getElementById('success-msg').style.display = 'block';
+                    successMsg.style.display = 'block';
+                    successMsg.innerHTML = "<h3>✅ INVIATO CON SUCCESSO!</h3><p>Noemi ha ricevuto la tua conferma. Ci vediamo alla festa!</p>";
                 } else {
-                    alert("Errore! Controlla di aver inserito correttamente il link SheetDB.");
+                    // ERRORE DAL SERVER (es. foglio Google non accessibile)
+                    alert("ERRORE: Il server ha risposto con errore " + res.status + ". Controlla che il foglio Google sia impostato su 'Editor' per tutti.");
                     btn.disabled = false;
-                    btn.innerHTML = "INVIA RISPOSTA ⚡️";
+                    btn.innerHTML = "RIPROVA ⚡️";
                 }
-            }).catch(err => {
-                alert("Errore di connessione.");
+            })
+            .catch(err => {
+                // ERRORE DI CONNESSIONE O LINK MALFORMATO
+                alert("ERRORE DI INVIO: " + err + ". Controlla la tua connessione o il link SheetDB.");
                 btn.disabled = false;
+                btn.innerHTML = "RIPROVA ⚡️";
             });
         });
     </script>
