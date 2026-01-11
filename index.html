@@ -63,7 +63,7 @@
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzMH2tSRZg69niY8ib7x9v_fwF1KF_XMKpbzkYJA3zo9O2zc22fD0cQwJg8AazOeNtI0Q/exec';
         const form = document.getElementById('rsvp-form');
 
-        form.addEventListener('submit', e => {
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = document.getElementById('submit-btn');
             btn.innerHTML = "INVIANDO...";
