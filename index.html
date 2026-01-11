@@ -10,118 +10,30 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        :root {
-            --blu: #0047FF;
-            --argento: #C0C0C0;
-            --nero: #000000;
-            --grigio-scuro: #0a0a0a;
-        }
-
+        :root { --blu: #0047FF; --argento: #C0C0C0; --nero: #000000; --grigio-scuro: #0a0a0a; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
-        body {
-            background-color: var(--nero);
-            color: white;
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-        }
-
-        .bg-glow {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, #001133 0%, #000 80%);
-            z-index: -1;
-        }
-
-        header {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-        }
-
-        h1 {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 3.5rem;
-            margin: 0;
-            background: linear-gradient(to bottom, #fff, var(--blu));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px rgba(0, 71, 255, 0.5));
-        }
-
-        .date-badge {
-            background: var(--blu);
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            margin-bottom: 20px;
-            box-shadow: 0 0 20px var(--blu);
-        }
+        body { background-color: var(--nero); color: white; font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
+        
+        .bg-glow { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, #001133 0%, #000 80%); z-index: -1; }
+        
+        header { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; }
+        h1 { font-family: 'Syncopate', sans-serif; font-size: 3.5rem; margin: 0; background: linear-gradient(to bottom, #fff, var(--blu)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 15px rgba(0, 71, 255, 0.5)); }
+        .date-badge { background: var(--blu); padding: 8px 20px; border-radius: 50px; font-weight: 800; letter-spacing: 2px; margin-bottom: 20px; box-shadow: 0 0 20px var(--blu); }
 
         .swiper { width: 100%; padding: 50px 0; }
-        .swiper-slide {
-            width: 280px; height: 380px;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 2px solid var(--blu);
-        }
+        .swiper-slide { width: 280px; height: 380px; border-radius: 20px; overflow: hidden; border: 2px solid var(--blu); }
         .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
 
-        .section-card {
-            background: var(--grigio-scuro);
-            margin: 20px;
-            padding: 30px;
-            border-radius: 25px;
-            border: 1px solid rgba(0, 71, 255, 0.3);
-            text-align: center;
-        }
-
-        .map-frame {
-            width: 100%; height: 250px;
-            border-radius: 15px;
-            border: 1px solid var(--blu);
-            margin-top: 15px;
-        }
+        .section-card { background: var(--grigio-scuro); margin: 20px; padding: 30px; border-radius: 25px; border: 1px solid rgba(0, 71, 255, 0.3); text-align: center; }
+        .map-frame { width: 100%; height: 250px; border-radius: 15px; border: 1px solid var(--blu); margin-top: 15px; }
 
         .form-group { text-align: left; margin-bottom: 15px; }
-        input, select {
-            width: 100%;
-            padding: 15px;
-            background: #111;
-            border: 1px solid #333;
-            border-radius: 10px;
-            color: white;
-            font-size: 1rem;
-            margin-top: 5px;
-        }
+        input, select { width: 100%; padding: 15px; background: #111; border: 1px solid #333; border-radius: 10px; color: white; font-size: 1rem; margin-top: 5px; }
+        
+        .btn-submit { background: var(--blu); color: white; width: 100%; padding: 20px; border: none; border-radius: 15px; font-weight: 800; text-transform: uppercase; box-shadow: 0 0 20px rgba(0, 71, 255, 0.4); margin-top: 10px; cursor: pointer; transition: 0.3s; }
+        .btn-submit:disabled { background: #333; cursor: not-allowed; }
 
-        .btn-submit {
-            background: var(--blu);
-            color: white;
-            width: 100%;
-            padding: 20px;
-            border: none;
-            border-radius: 15px;
-            font-weight: 800;
-            text-transform: uppercase;
-            box-shadow: 0 0 20px rgba(0, 71, 255, 0.4);
-            margin-top: 10px;
-            cursor: pointer;
-        }
-
-        #success-msg {
-            display: none;
-            padding: 20px;
-            color: #00FFCC;
-            font-weight: bold;
-        }
+        #success-msg { display: none; padding: 20px; color: #00FFCC; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -136,21 +48,19 @@
 
     <div class="swiper mySwiper" data-aos="fade-up">
         <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="image.png" alt="Noemi 1"></div>
-            <div class="swiper-slide"><img src="noemi1.jpeg" alt="Noemi 2"></div>
+            <div class="swiper-slide"><img src="noemi1.jpeg" alt="Noemi 1"></div>
             <div class="swiper-slide"><img src="noemi3.jpeg" alt="Noemi 3"></div>
             <div class="swiper-slide"><img src="noemiq4.jpeg" alt="Noemi 4"></div>
-            <div class="swiper-slide"><img src="diego2.jpeg" alt="Noemi 5"></div>
-            <div class="swiper-slide"><img src="noemi5.jpeg" alt="Noemi 6"></div>
-            <div class="swiper-slide"><img src="noemi6.jpeg" alt="Noemi 7"></div>
-            <div class="swiper-slide"><img src="noemi7.jpeg" alt="Noemi 8"></div>
+            <div class="swiper-slide"><img src="noemi5.jpeg" alt="Noemi 5"></div>
+            <div class="swiper-slide"><img src="noemi6.jpeg" alt="Noemi 6"></div>
+            <div class="swiper-slide"><img src="noemi7.jpeg" alt="Noemi 7"></div>
         </div>
     </div>
 
     <section class="section-card" data-aos="fade-up">
         <h2 style="color: var(--blu);">📍 LOCATION</h2>
         <p>Ospedaletto (Rimini)<br>Via della Festa, 18</p>
-        <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2864.545!2d12.55!3d43.99!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132ce0!2sOspedaletto%20RN!5e0!3m2!1sit!2sit!4v1700000000000"></iframe>
+        <iframe class="map-frame" src="https://www.google.it/maps/place/Parrocchia+di+San+Patrignano+(Ospedaletto)/@43.9816088,12.5646822,17z/data=!4m12!1m5!3m4!2zNDPCsDU4JzUyLjciTiAxMsKwMzQnMDIuMyJF!8m2!3d43.9813!4d12.5673!3m5!1s0x132ce9b11b07b437:0x490a3331a130ae31!8m2!3d43.9808755!4d12.5674469!16s%2Fg%2F11dyzb20jx?entry=ttu&g_ep=EgoyMDI2MDEwNy4wIKXMDSoASAFQAw%3D%3D"></iframe>
     </section>
 
     <section class="section-card" data-aos="fade-up" style="background: linear-gradient(145deg, #050505, #111);">
@@ -164,18 +74,18 @@
         <form id="rsvp-form">
             <div class="form-group">
                 <label>Nome e Cognome</label>
-                <input type="text" id="nome" placeholder="Scrivi qui..." required>
+                <input type="text" name="Nome" id="nome" placeholder="Scrivi qui..." required>
             </div>
             <div class="form-group">
                 <label>Ci sarai?</label>
-                <select id="partecipa" required>
+                <select name="Partecipa" id="partecipa" required>
                     <option value="SI">SÌ, non mancherò!</option>
                     <option value="NO">NO, purtroppo no.</option>
                 </select>
             </div>
             <div class="form-group">
                 <label>Che canzone vuoi ballare? 🎧</label>
-                <input type="text" id="canzone" placeholder="Titolo canzone...">
+                <input type="text" name="Canzone" id="canzone" placeholder="Titolo canzone...">
             </div>
             <button type="submit" class="btn-submit" id="submit-btn">INVIA RISPOSTA ⚡️</button>
         </form>
@@ -189,45 +99,52 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
+        // 1. INIZIALIZZAZIONE GRAFICA (Evita lo schermo blu)
+        AOS.init({ duration: 1000, once: true });
+        
+        new Swiper(".mySwiper", {
+            effect: "coverflow",
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: "auto",
+            loop: true,
+            autoplay: { delay: 2500, disableOnInteraction: false },
+            coverflowEffect: { rotate: 30, stretch: 0, depth: 100, modifier: 1, slideShadows: true }
+        });
 
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMH2tSRZg69niY8ib7x9v_fwF1KF_XMKpbzkYJA3zo9O2zc22fD0cQwJg8AazOeNtI0Q/exec';
+        // 2. INVIO DATI PROFESSIONALE
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMH2tSRZg69niY8ib7x9v_fwF1KF_XMKpbzkYJA3zo9O2zc22fD0cQwJg8AazOeNtI0Q/exec';
+        const form = document.getElementById('rsvp-form');
+        const btn = document.getElementById('submit-btn');
+        const successMsg = document.getElementById('success-msg');
 
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            btn.disabled = true;
+            btn.innerHTML = "INVIANDO...";
 
-function showToast(message, type = 'ok') {
-  const toast = document.getElementById('toast');
-  toast.textContent = message;
-  toast.className = `toast show${type}`;
+            // Creiamo l'oggetto dati pulito
+            const formData = new FormData();
+            formData.append('Nome', document.getElementById('nome').value);
+            formData.append('Partecipa', document.getElementById('partecipa').value);
+            formData.append('Canzone', document.getElementById('canzone').value);
 
-  setTimeout(() => {
-    toast.className = 'toast';
-  }, 3000); // 3 secondi
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.querySelector('#contact-form form');
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(form);
-
-    try {
-      await fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: formData
-      });
-
-      showToast('Richiesta inviata correttamente!', 'ok');
-      form.reset();
-    } catch (err) {
-      console.error(err);
-      showToast('Errore durante l\'invio. Riprova più tardi.', 'error');
-    }
-  });
-});
-
-
-       </script>
+            fetch(SCRIPT_URL, { 
+                method: 'POST', 
+                body: formData,
+                mode: 'no-cors' // Necessario per Google Script
+            })
+            .then(() => {
+                alert("Ciao! La tua conferma è stata inviata a Noemi! ✅");
+                form.style.display = 'none';
+                successMsg.style.display = 'block';
+            })
+            .catch(error => {
+                alert("Errore durante l'invio. Riprova!");
+                btn.disabled = false;
+                btn.innerHTML = "INVIA RISPOSTA ⚡️";
+            });
+        });
+    </script>
 </body>
 </html>
