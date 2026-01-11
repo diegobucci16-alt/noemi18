@@ -63,6 +63,23 @@
             background: radial-gradient(circle, rgba(0, 71, 255, 0.15) 0%, rgba(0,0,0,0) 70%);
             border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%); z-index: 0;
         }
+        
+        /* Animazione della caduta */
+        .emoji-particle {
+            position: fixed;
+            top: -50px;
+            font-size: 1.8rem; /* Dimensione emoji */
+            pointer-events: none;
+            z-index: 100;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(360deg);
+    }
+        }
+    
     </style>
 </head>
 <body class="animated-bg text-white">
@@ -147,7 +164,38 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
-        const glow = document.getElementById('cursor-glow');
+       
+       // Funzione per creare la pioggia di emoji
+function createEmoji() {
+    const emojis = ['🔞']; // Le tue emoji
+    const emoji = document.createElement('div');
+    
+    emoji.classList.add('emoji-particle');
+    emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+    
+    // Posizione orizzontale casuale
+    emoji.style.left = Math.random() * 100 + "vw";
+    
+    // Durata della caduta casuale (tra 3 e 6 secondi)
+    const duration = Math.random() * 3 + 3;
+    emoji.style.animationDuration = duration + "s";
+    
+    // Opacità casuale per dare profondità
+    emoji.style.opacity = Math.random();
+
+    document.body.appendChild(emoji);
+
+    // Rimuove l'emoji dopo che è caduta per non appesantire il sito
+    setTimeout(() => {
+        emoji.remove();
+    }, duration * 1000);
+}
+
+// Crea un'emoji ogni 300 millisecondi
+setInterval(createEmoji, 500);
+       
+       
+       const glow = document.getElementById('cursor-glow');
         document.addEventListener('mousemove', (e) => {
             glow.style.left = e.clientX + 'px';
             glow.style.top = e.clientY + 'px';
