@@ -1,174 +1,205 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>NOEMI 18</title>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Noemi • 18 - THE ELECTRIC NIGHT</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Mr+Dafoe&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              fontFamily: {
+                'montserrat': ['Montserrat', 'sans-serif'],
+                'neon': ['"Mr Dafoe"', 'cursive'],
+              },
+              colors: { 'neon-blue': '#00eaff', 'blu-party': '#0047FF' }
+            }
+          }
+        }
+    </script>
+
     <style>
-        :root { --blu: #0047FF; --argento: #C0C0C0; --nero: #000000; --grigio-scuro: #0a0a0a; }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body {
-   
-    position: relative; /* 👈 FIX FONDAMENTALE */
-}
+        /* Animazione Neon Pulsante */
+        @keyframes pulse-neon {
+            0%, 100% { text-shadow: 0 0 10px #007bff, 0 0 20px #007bff, 0 0 40px #007bff; opacity: 1; }
+            50% { text-shadow: 0 0 5px #007bff, 0 0 10px #007bff, 0 0 20px #007bff; opacity: 0.8; }
+        }
+        .neon-pulse { animation: pulse-neon 1.5s infinite; }
 
-      .bg-glow {
-    position: absolute;      /* 👈 CHIAVE */
-    top: 0;
-    left: 0;
-    width: 100%;
-    min-height: 100vh;       /* 👈 invece di height */
-    background: radial-gradient(circle at 50% 50%, #001133 0%, #000 80%);
-    z-index: 0;
-}
-
- header, section, .swiper {
-    position: relative;
-    z-index: 2;
-}
-
-        h1 { font-family: 'Syncopate', sans-serif; font-size: 3.5rem; margin: 0; background: linear-gradient(to bottom, #fff, var(--blu)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 15px rgba(0, 71, 255, 0.5)); }
-        .date-badge { background: var(--blu); padding: 8px 20px; border-radius: 50px; font-weight: 800; letter-spacing: 2px; margin-bottom: 20px; box-shadow: 0 0 20px var(--blu); }
-
-        .swiper { width: 100%; padding: 50px 0; }
-        .swiper-slide { width: 280px; height: 380px; border-radius: 20px; overflow: hidden; border: 2px solid var(--blu); }
-        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
-
-        .section-card { background: var(--grigio-scuro); margin: 20px; padding: 30px; border-radius: 25px; border: 1px solid rgba(0, 71, 255, 0.3); text-align: center; }
-        .map-frame { width: 100%; height: 250px; border-radius: 15px; border: 1px solid var(--blu); margin-top: 15px; }
-
-        .form-group { text-align: left; margin-bottom: 15px; }
-        input, select { width: 100%; padding: 15px; background: #111; border: 1px solid #333; border-radius: 10px; color: white; font-size: 1rem; margin-top: 5px; }
+        .metallic-text {
+            background: linear-gradient(180deg, #ffffff 0%, #e0e0e0 45%, #ffffff 55%, #cccccc 100%);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+            filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.8));
+        }
+        .neon-text { color: #00f7ff; }
         
-        .btn-submit { background: var(--blu); color: white; width: 100%; padding: 20px; border: none; border-radius: 15px; font-weight: 800; text-transform: uppercase; box-shadow: 0 0 20px rgba(0, 71, 255, 0.4); margin-top: 10px; cursor: pointer; transition: 0.3s; }
-        .btn-submit:disabled { background: #333; cursor: not-allowed; }
+        body { background-color: black; overflow-x: hidden; }
+        
+        .swiper { width: 100%; padding: 40px 0; }
+        .swiper-slide { width: 280px; height: 380px; border-radius: 25px; overflow: hidden; border: 3px solid #0047FF; box-shadow: 0 0 30px rgba(0, 71, 255, 0.5); }
+        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
+        
+        input, select { background: #0a0a0a !important; border: 1px solid #0047FF !important; color: white !important; transition: 0.3s; }
+        input:focus { box-shadow: 0 0 15px #0047FF !important; }
 
-        #success-msg { display: none; padding: 20px; color: #00FFCC; font-weight: bold; }
-   
-   
-   
+        .card-glass { background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(15px); border: 1px solid rgba(0, 71, 255, 0.3); box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+        
+        .map-container { position: relative; width: 100%; height: 300px; border-radius: 20px; overflow: hidden; border: 2px solid #0047FF; }
 
-   
-   </style>
+        #cursor-glow {
+            position: fixed; width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(0, 71, 255, 0.15) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%); z-index: 0;
+        }
+    </style>
 </head>
-<body>
+<body class="text-white">
+    <div id="cursor-glow"></div>
 
-    <div class="bg-glow"></div>
-
-    <header data-aos="zoom-in">
-        <div class="date-badge">18 APRILE 2026</div>
-        <h1>NOEMI 18</h1>
-        <p style="color: var(--argento); letter-spacing: 5px;">THE ELECTRIC NIGHT</p>
-    </header>
-
-    <div class="swiper mySwiper" data-aos="fade-up">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="noemi1.jpeg" alt="Noemi 1"></div>
-            <div class="swiper-slide"><img src="noemi3.jpeg" alt="Noemi 3"></div>
-            <div class="swiper-slide"><img src="noemiq4.jpeg" alt="Noemi 4"></div>
-            <div class="swiper-slide"><img src="noemi5.jpeg" alt="Noemi 5"></div>
-            <div class="swiper-slide"><img src="noemi6.jpeg" alt="Noemi 6"></div>
-            <div class="swiper-slide"><img src="noemi7.jpeg" alt="Noemi 7"></div>
-        </div>
+    <div class="fixed top-0 left-0 w-full h-full -z-10">
+        <div class="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black"></div>
+        <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=2070" class="w-full h-full object-cover opacity-20">
     </div>
 
-    <section class="section-card" data-aos="fade-up">
-        <h2 style="color: var(--blu);">📍 LOCATION</h2>
-        <p>Ospedaletto (Rimini)<br>Via della Festa, 18</p>
-        <iframe class="map-frame" src="https://www.google.it/maps/place/Parrocchia+di+San+Patrignano+(Ospedaletto)/@43.9816088,12.5646822,17z/data=!4m12!1m5!3m4!2zNDPCsDU4JzUyLjciTiAxMsKwMzQnMDIuMyJF!8m2!3d43.9813!4d12.5673!3m5!1s0x132ce9b11b07b437:0x490a3331a130ae31!8m2!3d43.9808755!4d12.5674469!16s%2Fg%2F11dyzb20jx?entry=ttu&g_ep=EgoyMDI2MDEwNy4wIKXMDSoASAFQAw%3D%3D"></iframe>
-    </section>
+    <main class="relative z-10 flex flex-col items-center py-12 px-4">
+        
+        <header class="text-center mb-16" data-aos="flip-up" data-aos-duration="1500">
+            <div class="inline-block px-6 py-2 border-2 border-blue-500 rounded-full text-xs tracking-[0.5em] mb-6 text-blue-400 font-black animate-pulse">18 APRILE 2026</div>
+            <h1 class="text-7xl md:text-[10rem] font-montserrat font-black metallic-text tracking-tighter leading-none">NOEMI<br>• 18 •</h1>
+            <h2 class="text-6xl md:text-9xl font-neon neon-text neon-pulse -rotate-3 mt-6">The Electric Night</h2>
+        </header>
 
-    <section class="section-card" data-aos="fade-up" style="background: linear-gradient(145deg, #050505, #111);">
-        <h2 style="color: var(--argento);">👔 DRESS CODE</h2>
-        <p style="font-size: 1.4rem; font-weight: 800; letter-spacing: 1px;">TOTAL BLACK ELEGANT</p>
-        <p style="font-size: 0.9rem; opacity: 0.7;">Vesti di nero e divertiti.</p>
-    </section>
+        <section class="w-full max-w-6xl mb-24" data-aos="zoom-in-up">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="noemi1.jpeg"></div>
+                    <div class="swiper-slide"><img src="noemi3.jpeg"></div>
+                    <div class="swiper-slide"><img src="noemiq4.jpeg"></div>
+                    <div class="swiper-slide"><img src="noemi5.jpeg"></div>
+                    <div class="swiper-slide"><img src="noemi6.jpeg"></div>
+                    <div class="swiper-slide"><img src="noemi7.jpeg"></div>
+                    <div class="swiper-slide"><img src="image.png"></div>
+                    <div class="swiper-slide"><img src="diego2.jpeg"></div>
+                
+                </div>
+            </div>
+        </section>
 
-    <section class="section-card" data-aos="fade-up" style="margin-bottom: 50px;">
-        <h2 style="margin-top: 0;">CONFERMA ORA</h2>
-        <form id="rsvp-form">
-            <div class="form-group">
-                <label>Nome e Cognome</label>
-                <input type="text" name="Nome" id="nome" placeholder="Scrivi qui..." required>
+        <div class="grid md:grid-cols-2 gap-8 w-full max-w-5xl mb-20">
+            
+            <div class="card-glass p-10 rounded-[2rem] flex flex-col items-center" data-aos="fade-right" data-aos-delay="200">
+                <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center text-3xl mb-6 shadow-lg shadow-blue-500/50">📍</div>
+                <h3 class="font-montserrat font-black tracking-widest text-blue-400 mb-4 text-xl">CHIESA DI OSPEDALETTO</h3>
+                <p class="text-center text-slate-300 mb-6 font-medium italic">Ci troviamo alle ore 21:00 presso la parrocchia per dare inizio alla festa.</p>
+                
+                <div class="map-container mb-6">
+                    <iframe class="w-full h-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2866.425875888289!2d12.564859076878484!3d43.98132913093226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132ce9b11b07b437%3A0x490a3331a130ae31!2sParrocchia%20di%20San%20Patrignano%20(Ospedaletto)!5e0!3m2!1sit!2sit!4v1705000000000" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+
+                <a href="https://maps.app.goo.gl/uXpX8U1qXhM6Y9yL8" target="_blank" class="bg-blue-600 px-8 py-3 rounded-full font-bold hover:scale-110 transition-transform">APRI NAVIGATORE 🚗</a>
             </div>
-            <div class="form-group">
-                <label>Ci sarai?</label>
-                <select name="Partecipa" id="partecipa" required>
-                    <option value="SI">SÌ, non mancherò!</option>
-                    <option value="NO">NO, purtroppo no.</option>
-                </select>
+
+            <div class="card-glass p-10 rounded-[2rem] flex flex-col items-center justify-center" data-aos="fade-left" data-aos-delay="400">
+                <div class="w-16 h-16 bg-zinc-800 rounded-full flex items-center justify-center text-3xl mb-6 shadow-lg">👔</div>
+                <h3 class="font-montserrat font-black tracking-[0.3em] text-blue-400 mb-6 text-xl text-center">DRESS CODE</h3>
+                <div class="text-center">
+                    <span class="text-5xl md:text-6xl font-black block tracking-widest text-white mb-4">TOTAL</span>
+                    <span class="text-5xl md:text-6xl font-black block tracking-widest metallic-text">BLACK</span>
+                </div>
+                <div class="mt-8 p-4 border-t border-blue-900/50 text-slate-400 text-sm italic">
+                    Un look elegante, magnetico e totalmente nero.
+                </div>
             </div>
-            <div class="form-group">
-                <label>Che canzone vuoi ballare? 🎧</label>
-                <input type="text" name="Canzone" id="canzone" placeholder="Titolo canzone...">
-            </div>
-            <button type="submit" class="btn-submit" id="submit-btn">INVIA RISPOSTA ⚡️</button>
-        </form>
-        <div id="success-msg">
-            <h3>✅ INVIATO CON SUCCESSO!</h3>
-            <p>Noemi ha ricevuto la tua conferma. Ci vediamo alla festa!</p>
         </div>
-    </section>
 
-  <script>
-document.addEventListener("DOMContentLoaded", () => {
+        <section class="w-full max-w-lg card-glass p-10 rounded-[2.5rem] mb-24 relative overflow-hidden" data-aos="zoom-in">
+            <div class="absolute top-0 right-0 p-4 opacity-10 text-9xl">⚡️</div>
+            <h2 class="text-3xl font-black text-center mb-8 tracking-widest metallic-text uppercase">Conferma ora</h2>
+            <form id="rsvp-form" class="space-y-6 relative z-10">
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black tracking-widest text-blue-400 ml-2">NOME E COGNOME</label>
+                    <input type="text" id="nome" name="Nome" class="w-full rounded-2xl p-5 outline-none focus:ring-2 focus:ring-blue-500" required placeholder="Inserisci il tuo nome">
+                </div>
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black tracking-widest text-blue-400 ml-2">PARTECIPERAI ALLA NOTTE?</label>
+                    <select id="partecipa" name="Partecipa" class="w-full rounded-2xl p-5 outline-none">
+                        <option value="SI">SÌ, CI SARÒ! </option>
+                        <option value="NO">NO, NON POSSO </option>
+                    </select>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black tracking-widest text-blue-400 ml-2">LA TUA CANZONE PREFERITA</label>
+                    <input type="text" id="canzone" name="Canzone" class="w-full rounded-2xl p-5 outline-none" placeholder="Titolo della canzone">
+                </div>
+                <button type="submit" id="submit-btn" class="w-full bg-blue-600 hover:bg-blue-400 py-6 rounded-2xl font-black text-xl shadow-2xl shadow-blue-900/60 transition-all hover:-translate-y-2">
+                    INVIA CONFERMA 
+                </button>
+            </form>
+            <div id="success-msg" class="hidden text-center py-10 animate-bounce">
+                <div class="text-7xl mb-6"></div>
+                <h3 class="text-3xl font-black text-green-400 italic">CI VEDIAMO LÌ!</h3>
+                <p class="text-slate-400 mt-2">La tua risposta è arrivata a Noemi.</p>
+            </div>
+        </section>
 
-    // 1️⃣ Animazioni (protette)
-    if (typeof AOS !== 'undefined') {
-        AOS.init({ duration: 1000 });
-    }
+    </main>
 
-    if (typeof Swiper !== 'undefined') {
-        new Swiper(".mySwiper", {
-            effect: "coverflow",
-            centeredSlides: true,
-            slidesPerView: "auto",
-            loop: true,
-            autoplay: { delay: 2500 }
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+        // Effetto Glow Mouse
+        const glow = document.getElementById('cursor-glow');
+        document.addEventListener('mousemove', (e) => {
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
         });
-    }
 
-    // 2️⃣ FORM (protetto)
-    const form = document.getElementById('rsvp-form');
-    if (!form) return; // ⛔ evita crash
+        // Init Grafica
+        window.onload = () => {
+            AOS.init({ duration: 1200, once: false }); // once: false permette di rivedere le animazioni scorrendo
+            new Swiper(".mySwiper", {
+                effect: "coverflow",
+                centeredSlides: true,
+                slidesPerView: "auto",
+                loop: true,
+                autoplay: { delay: 2000 }
+            });
+        };
 
-    form.addEventListener('submit', e => {
-        e.preventDefault();
+        // GESTIONE INVIO DATI (Google Sheets)
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMH2tSRZg69niY8ib7x9v_fwF1KF_XMKpbzkYJA3zo9O2zc22fD0cQwJg8AazOeNtI0Q/exec';
+        const form = document.getElementById('rsvp-form');
 
-        const btn = document.getElementById('submit-btn');
-        btn.innerHTML = "INVIANDO...";
-        btn.disabled = true;
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            btn.innerHTML = "INVIANDO... ";
+            btn.disabled = true;
 
-        const nome = document.getElementById('nome').value;
-        const partecipa = document.getElementById('partecipa').value;
-        const canzone = document.getElementById('canzone').value;
+            const nome = document.getElementById('nome').value;
+            const partecipa = document.getElementById('partecipa').value;
+            const canzone = document.getElementById('canzone').value;
 
-        const finalURL =
-            "https://script.google.com/macros/s/AKfycbzMH2tSRZg69niY8ib7x9v_fwF1KF_XMKpbzkYJA3zo9O2zc22fD0cQwJg8AazOeNtI0Q/exec"
-            + "?Nome=" + encodeURIComponent(nome)
-            + "&Partecipa=" + encodeURIComponent(partecipa)
-            + "&Canzone=" + encodeURIComponent(canzone);
+            const finalURL = SCRIPT_URL + "?Nome=" + encodeURIComponent(nome) + "&Partecipa=" + encodeURIComponent(partecipa) + "&Canzone=" + encodeURIComponent(canzone);
 
-        fetch(finalURL)
-        .then(() => {
-            alert("Inviato correttamente! ✅");
-            form.style.display = 'none';
-            document.getElementById('success-msg').style.display = 'block';
-        })
-        .catch(() => {
-            alert("Errore di rete!");
-            btn.disabled = false;
-            btn.innerHTML = "INVIA RISPOSTA ⚡️";
+            fetch(finalURL, { method: 'POST', mode: 'no-cors' })
+            .then(() => {
+                form.classList.add('hidden');
+                document.getElementById('success-msg').classList.remove('hidden');
+            })
+            .catch(() => {
+                alert("Riprova, c'è stato un piccolo errore!");
+                btn.disabled = false;
+                btn.innerHTML = "INVIA CONFERMA ";
+            });
         });
-    });
-});
-</script>
-
-   
+    </script>
 </body>
 </html>
