@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>NOEMI 18 </title>
+    <title>NOEMI 18</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -50,12 +50,7 @@
     <section class="section-card" data-aos="fade-up">
         <h2 style="color: var(--blu);">📍 LOCATION</h2>
         <p>Ospedaletto (Rimini)<br>Via della Festa, 18</p>
-        <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2864.2483864070284!2d12.5843468!3d43.951593!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132cf967248e8523%3A0x9284a224fbc0cd2e!2s47853%20Ospedaletto%20RN!5e0!3m2!1sit!2sit!4v1700000000000"></iframe>
-    </section>
-
-    <section class="section-card" data-aos="fade-up">
-        <h2 style="color: var(--argento);">👔 DRESS CODE</h2>
-        <p style="font-size: 1.4rem; font-weight: 800; letter-spacing: 1px;">TOTAL BLACK ELEGANT</p>
+        <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2864.7!2d12.5!3d43.9!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDPCsDU0JzAwLjAiTiAxMsKwMzAnMDAuMCJF!5e0!3m2!1sit!2sit!4v1620000000000!5m2!1sit!2sit"></iframe>
     </section>
 
     <section class="section-card" data-aos="fade-up" style="margin-bottom: 50px;">
@@ -63,18 +58,18 @@
         <form id="rsvp-form">
             <div class="form-group">
                 <label>Nome e Cognome</label>
-                <input type="text" id="nome" required>
+                <input type="text" id="nome" name="Nome" required>
             </div>
             <div class="form-group">
                 <label>Ci sarai?</label>
-                <select id="partecipa" required>
+                <select id="partecipa" name="Partecipa" required>
                     <option value="SI">SÌ!</option>
                     <option value="NO">NO</option>
                 </select>
             </div>
             <div class="form-group">
                 <label>Canzone 🎧</label>
-                <input type="text" id="canzone">
+                <input type="text" id="canzone" name="Canzone">
             </div>
             <button type="submit" class="btn-submit" id="submit-btn">INVIA RISPOSTA ⚡️</button>
         </form>
@@ -84,40 +79,34 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-       
-    document.getElementById('rsvp-form').addEventListener("submit", function(e) {
-        e.preventDefault();
-        const btn = document.getElementById('submit-btn');
-        const successMsg = document.getElementById('success-msg');
-        
-        btn.innerHTML = "INVIANDO...";
-        btn.disabled = true;
+        AOS.init();
+        new Swiper(".mySwiper", { effect: "coverflow", grabCursor: true, centeredSlides: true, slidesPerView: "auto", loop: true, autoplay: { delay: 2500 }, coverflowEffect: { rotate: 30, stretch: 0, depth: 100, modifier: 1, slideShadows: true } });
 
-        // INCOLLA QUI SOTTO IL TUO URL DI GOOGLE APPS SCRIPT
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbx7HPTQ-piP7fv6KNUNo7ARdDyhrFoNOfUd0OIoRJk1pIvHfzvM_pUqZrtsCcYTrUQK4A/exec'; 
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbx7HPTQ-piP7fv6KNUNo7ARdDyhrFoNOfUd0OIoRJk1pIvHfzvM_pUqZrtsCcYTrUQK4A/exec';
+        const form = document.getElementById('rsvp-form');
 
-        fetch(scriptURL, {
-            method: "POST",
-            mode: 'no-cors', // Importante per Google Script
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                "Nome": document.getElementById('nome').value,
-                "Partecipa": document.getElementById('partecipa').value,
-                "Canzone": document.getElementById('canzone').value
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            btn.innerHTML = "INVIANDO...";
+            btn.disabled = true;
+
+            // Trasformiamo i dati in un formato che Google Script accetta meglio
+            fetch(scriptURL, { 
+                method: 'POST', 
+                body: new FormData(form)
             })
-        })
-        .then(() => {
-            // Con 'no-cors' non possiamo leggere la risposta, 
-            // quindi ipotizziamo il successo se non c'è errore di rete
-            document.getElementById('rsvp-form').style.display = 'none';
-            successMsg.style.display = 'block';
-        })
-        .catch(err => {
-            alert("Errore invio.");
-            btn.disabled = false;
+            .then(response => {
+                alert("Invio completato con successo! ✅");
+                form.style.display = 'none';
+                document.getElementById('success-msg').style.display = 'block';
+            })
+            .catch(error => {
+                alert("Errore durante l'invio. Riprova!");
+                btn.innerHTML = "INVIA RISPOSTA ⚡️";
+                btn.disabled = false;
+            });
         });
-    });
-
     </script>
 </body>
 </html>
