@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NOEMI 18 | THE ELECTRIC NIGHT</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --blu: #0047FF;
+            --argento: #C0C0C0;
+            --nero: #000000;
+            --grigio-scuro: #0a0a0a;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--nero);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* SFONDO ANIMATO */
+        .bg-glow {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, #001133 0%, #000 80%);
+            z-index: -1;
+        }
+
+        /* HEADER */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 3.5rem;
+            margin: 0;
+            background: linear-gradient(to bottom, #fff, var(--blu));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(0, 71, 255, 0.5));
+        }
+
+        .date-badge {
+            background: var(--blu);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px var(--blu);
+        }
+
+        /* CAROUSEL */
+        .swiper { width: 100%; padding: 50px 0; }
+        .swiper-slide {
+            width: 280px; height: 380px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid var(--blu);
+        }
+        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* SEZIONI INFO */
+        .section-card {
+            background: var(--grigio-scuro);
+            margin: 20px;
+            padding: 30px;
+            border-radius: 25px;
+            border: 1px solid rgba(0, 71, 255, 0.3);
+            text-align: center;
+        }
+
+        .map-frame {
+            width: 100%; height: 250px;
+            border-radius: 15px;
+            border: 1px solid var(--blu);
+            margin-top: 15px;
+        }
+
+        /* FORM */
+        .form-group { text-align: left; margin-bottom: 15px; }
+        input, select {
+            width: 100%;
+            padding: 15px;
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            margin-top: 5px;
+        }
+        input:focus { border-color: var(--blu); outline: none; }
+
+        .btn-submit {
+            background: var(--blu);
+            color: white;
+            width: 100%;
+            padding: 20px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 800;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px rgba(0, 71, 255, 0.4);
+            margin-top: 10px;
+        }
+
+        #success-msg {
+            display: none;
+            padding: 20px;
+            color: #00FFCC;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+
+    <header data-aos="zoom-in">
+        <div class="date-badge">18 aprile 2026</div>
+        <h1>NOEMI 18</h1>
+        <p style="color: var(--argento); letter-spacing: 5px;">THE ELECTRIC NIGHT</p>
+    </header>
+
+    <div class="swiper mySwiper" data-aos="fade-up">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="image.png" alt="Noemi 1"></div>
+            <div class="swiper-slide"><img src="noemi1.jpeg" alt="Noemi 2"></div>
+            <div class="swiper-slide"><img src="noemi3.jpeg" alt="Noemi 3"></div>
+            <div class="swiper-slide"><img src="noemiq4.jpeg" alt="Noemi 4"></div>
+            <div class="swiper-slide"><img src="diego2.jpeg" alt="Noemi 1"></div>
+            <div class="swiper-slide"><img src="noemi5.jpeg" alt="Noemi 2"></div>
+            <div class="swiper-slide"><img src="noemi6.jpeg" alt="Noemi 3"></div>
+            <div class="swiper-slide"><img src="noemi7.jpeg" alt="Noemi 4"></div>
+        
+        </div>
+    </div>
+
+    <section class="section-card" data-aos="fade-up">
+        <h2 style="color: var(--blu);">📍 LOCATION</h2>
+        <p>Ospedaletto (Rimini)<br>Via della Festa, 18</p>
+        <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11462.628929731215!2d12.551325!3d43.9871!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132cc494f6f8749f%3A0x6284a224ff0dad2e!2s47853%20Ospedaletto%20RN!5e0!3m2!1sit!2sit!4v1700000000000"></iframe>
+    </section>
+
+    <section class="section-card" data-aos="fade-up" style="background: linear-gradient(145deg, #050505, #111);">
+        <h2 style="color: var(--argento);">👔 DRESS CODE</h2>
+        <p style="font-size: 1.4rem; font-weight: 800; letter-spacing: 1px;">TOTAL BLACK ELEGANT</p>
+        <p style="font-size: 0.9rem; opacity: 0.7;">Vesti di nero e divertiti.</p>
+    </section>
+
+    <section class="section-card" data-aos="fade-up" style="margin-bottom: 50px;">
+        <h2 style="margin-top: 0;">CONFERMA ORA</h2>
+        <form id="rsvp-form">
+            <div class="form-group">
+                <label>Nome e Cognome</label>
+                <input type="text" id="nome" name="Nome" placeholder="Scrivi qui..." required>
+            </div>
+            <div class="form-group">
+                <label>Ci sarai?</label>
+                <select id="partecipa" name="Partecipa" required>
+                    <option value="SI">SÌ, non mancherò!</option>
+                    <option value="NO">NO, purtroppo no.</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Che canzone vuoi ballare? 🎧</label>
+                <input type="text" id="canzone" name="Canzone" placeholder="Titolo canzone...">
+            </div>
+            <button type="submit" class="btn-submit" id="submit-btn">INVIA RISPOSTA ⚡️</button>
+        </form>
+        <div id="success-msg">
+            <p>✅ Risposta salvata nel Foglio Excel di Noemi!</p>
+        </div>
+    </section>
+
+    <p style="text-align: center; font-size: 0.7rem; color: #444; margin-bottom: 20px;">NOEMI 18 EXPERIENCE • 2026</p>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+        // Inizializza Animazioni
+        AOS.init({ duration: 1000, once: true });
+
+        // Inizializza Carosello Infinito
+        new Swiper(".mySwiper", {
+            effect: "coverflow",
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: "auto",
+            loop: true,
+            autoplay: { delay: 2000 },
+            coverflowEffect: { rotate: 30, stretch: 0, depth: 100, modifier: 1, slideShadows: true },
+        });
+
+        // INVIO DATI A GOOGLE SHEET (EXCEL)
+        const form = document.getElementById('rsvp-form');
+        form.addEventListener("submit", e => {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            btn.innerHTML = "SALVATAGGIO...";
+            btn.disabled = true;
+
+            // --- INCOLLA QUI SOTTO IL TUO LINK DI SHEETDB ---
+            const sheetDB_URL = "INCOLLA_QUI_IL_TUO_LINK_SHEETDB"; 
+
+            fetch(sheetDB_URL, {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    data: [
+                        {
+                            Nome: document.getElementById('nome').value,
+                            Partecipa: document.getElementById('partecipa').value,
+                            Canzone: document.getElementById('canzone').value
+                        }
+                    ]
+                })
+            }).then(res => {
+                if(res.ok) {
+                    form.style.display = 'none';
+                    document.getElementById('success-msg').style.display = 'block';
+                } else {
+                    alert("Errore! Controlla di aver inserito correttamente il link SheetDB.");
+                    btn.disabled = false;
+                    btn.innerHTML = "INVIA RISPOSTA ⚡️";
+                }
+            }).catch(err => {
+                alert("Errore di connessione.");
+                btn.disabled = false;
+            });
+        });
+    </script>
+</body>
+</html>
