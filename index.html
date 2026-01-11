@@ -60,27 +60,41 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzMH2tSRZg69niY8ib7x9v_fwF1KF_XMKpbzkYJA3zo9O2zc22fD0cQwJg8AazOeNtI0Q/exec';
-        const form = document.getElementById('rsvp-form');
+    // Inserisci qui il tuo NUOVO link ottenuto dopo il deployment
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzMH2tSRZg69niY8ib7x9v_fwF1KF_XMKpbzkYJA3zo9O2zc22fD0cQwJg8AazOeNtI0Q/exec';
+    const form = document.getElementById('rsvp-form');
 
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const btn = document.getElementById('submit-btn');
-            btn.innerHTML = "INVIANDO...";
-            btn.disabled = true;
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const btn = document.getElementById('submit-btn');
+        const successMsg = document.getElementById('success-msg');
+        
+        // Effetto caricamento professionale
+        btn.innerHTML = "ELABORAZIONE... ⏳";
+        btn.disabled = true;
 
-            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-            .then(response => {
-                alert("Invio completato con successo! ✅");
-                form.style.display = 'none';
-                document.getElementById('success-msg').style.display = 'block';
-            })
-            .catch(error => {
-                alert("Errore! Riprova.");
-                btn.innerHTML = "INVIA RISPOSTA ⚡️";
-                btn.disabled = false;
-            });
+        // Invio dei dati tramite FormData
+        fetch(scriptURL, { 
+            method: 'POST', 
+            body: new FormData(form) 
+        })
+        .then(response => {
+            console.log('Successo!', response);
+            alert("Ottimo! La tua conferma è stata registrata. ✅");
+            
+            // Nascondi form e mostra messaggio
+            form.style.display = 'none';
+            successMsg.style.display = 'block';
+        })
+        .catch(error => {
+            console.error('Errore!', error.message);
+            alert("Si è verificato un problema. Riprova tra un istante.");
+            
+            btn.innerHTML = "INVIA RISPOSTA ⚡️";
+            btn.disabled = false;
         });
-    </script>
+    });
+</script>
 </body>
 </html>
