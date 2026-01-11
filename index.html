@@ -11,76 +11,57 @@
 
     <style>
         :root { --blu: #0047FF; --argento: #C0C0C0; --nero: #000000; --grigio: #0a0a0a; }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--nero); color: white; font-family: 'Montserrat', sans-serif; margin: 0; overflow-x: hidden; }
+        * { box-sizing: border-box; }
+        body { background-color: var(--nero); color: white; font-family: 'Montserrat', sans-serif; margin: 0; overflow-x: hidden; text-align: center; }
         .bg-glow { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, #001133 0%, #000 80%); z-index: -1; }
-        header { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; }
-        h1 { font-family: 'Syncopate', sans-serif; font-size: 3.5rem; margin: 0; background: linear-gradient(to bottom, #fff, var(--blu)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 15px rgba(0, 71, 255, 0.5)); }
-        .date-badge { background: var(--blu); padding: 8px 20px; border-radius: 50px; font-weight: 800; letter-spacing: 2px; margin-bottom: 20px; box-shadow: 0 0 20px var(--blu); }
-        .swiper { width: 100%; padding: 50px 0; }
+        header { padding: 80px 20px; }
+        h1 { font-family: 'Syncopate', sans-serif; font-size: 3rem; background: linear-gradient(to bottom, #fff, var(--blu)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .date-badge { background: var(--blu); padding: 8px 20px; border-radius: 50px; display: inline-block; font-weight: 800; margin-bottom: 20px; }
+        .swiper { width: 100%; padding: 30px 0; }
         .swiper-slide { width: 280px; height: 380px; border-radius: 20px; overflow: hidden; border: 2px solid var(--blu); }
         .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
-        .section-card { background: var(--grigio); margin: 20px; padding: 30px; border-radius: 25px; border: 1px solid rgba(0, 71, 255, 0.3); text-align: center; }
-        .map-frame { width: 100%; height: 250px; border-radius: 15px; border: 1px solid var(--blu); margin-top: 15px; }
-        .form-group { text-align: left; margin-bottom: 15px; }
-        input, select { width: 100%; padding: 15px; background: #111; border: 1px solid #333; border-radius: 10px; color: white; font-size: 1rem; margin-top: 5px; }
-        .btn-submit { background: var(--blu); color: white; width: 100%; padding: 20px; border: none; border-radius: 15px; font-weight: 800; text-transform: uppercase; box-shadow: 0 0 20px rgba(0, 71, 255, 0.4); margin-top: 10px; cursor: pointer; }
-        #success-msg { display: none; padding: 20px; color: #00FFCC; font-weight: bold; }
+        .section-card { background: var(--grigio); margin: 20px; padding: 30px; border-radius: 25px; border: 1px solid rgba(0, 71, 255, 0.3); }
+        input, select { width: 100%; padding: 15px; background: #111; border: 1px solid #333; border-radius: 10px; color: white; margin-top: 5px; margin-bottom: 15px; }
+        .btn-submit { background: var(--blu); color: white; width: 100%; padding: 20px; border: none; border-radius: 15px; font-weight: 800; text-transform: uppercase; cursor: pointer; }
+        #success-msg { display: none; color: #00FFCC; font-weight: bold; margin-top: 20px; }
     </style>
 </head>
 <body>
     <div class="bg-glow"></div>
-    <header data-aos="zoom-in">
+    <header>
         <div class="date-badge">18 APRILE 2026</div>
         <h1>NOEMI 18</h1>
         <p style="color: var(--argento); letter-spacing: 5px;">THE ELECTRIC NIGHT</p>
     </header>
 
-    <div class="swiper mySwiper" data-aos="fade-up">
+    <div class="swiper mySwiper">
         <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="noemi1.jpeg" alt="Foto"></div>
-            <div class="swiper-slide"><img src="noemi3.jpeg" alt="Foto"></div>
-            <div class="swiper-slide"><img src="noemiq4.jpeg" alt="Foto"></div>
-            <div class="swiper-slide"><img src="noemi5.jpeg" alt="Foto"></div>
-            <div class="swiper-slide"><img src="noemi6.jpeg" alt="Foto"></div>
-            <div class="swiper-slide"><img src="noemi7.jpeg" alt="Foto"></div>
+            <div class="swiper-slide"><img src="noemi1.jpeg"></div>
+            <div class="swiper-slide"><img src="noemi3.jpeg"></div>
+            <div class="swiper-slide"><img src="noemiq4.jpeg"></div>
+            <div class="swiper-slide"><img src="noemi5.jpeg"></div>
         </div>
     </div>
 
-    <section class="section-card" data-aos="fade-up">
-        <h2 style="color: var(--blu);">📍 LOCATION</h2>
-        <p>Ospedaletto (Rimini)<br>Via della Festa, 18</p>
-        <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2864.7!2d12.5!3d43.9!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDPCsDU0JzAwLjAiTiAxMsKwMzAnMDAuMCJF!5e0!3m2!1sit!2sit!4v1620000000000!5m2!1sit!2sit"></iframe>
-    </section>
-
-    <section class="section-card" data-aos="fade-up" style="margin-bottom: 50px;">
-        <h2 style="margin-top: 0;">CONFERMA ORA</h2>
+    <section class="section-card">
+        <h2>CONFERMA ORA</h2>
         <form id="rsvp-form">
-            <div class="form-group">
-                <label>Nome e Cognome</label>
-                <input type="text" id="nome" name="Nome" required>
-            </div>
-            <div class="form-group">
-                <label>Ci sarai?</label>
-                <select id="partecipa" name="Partecipa" required>
-                    <option value="SI">SÌ!</option>
-                    <option value="NO">NO</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Canzone 🎧</label>
-                <input type="text" id="canzone" name="Canzone">
-            </div>
+            <input type="text" id="nome" name="Nome" placeholder="Nome e Cognome" required>
+            <select id="partecipa" name="Partecipa" required>
+                <option value="SI">SÌ!</option>
+                <option value="NO">NO</option>
+            </select>
+            <input type="text" id="canzone" name="Canzone" placeholder="Canzone preferita">
             <button type="submit" class="btn-submit" id="submit-btn">INVIA RISPOSTA ⚡️</button>
         </form>
-        <div id="success-msg"><h3>✅ INVIATO!</h3></div>
+        <div id="success-msg"><h3>✅ INVIATO CON SUCCESSO!</h3></div>
     </section>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         AOS.init();
-        new Swiper(".mySwiper", { effect: "coverflow", grabCursor: true, centeredSlides: true, slidesPerView: "auto", loop: true, autoplay: { delay: 2500 }, coverflowEffect: { rotate: 30, stretch: 0, depth: 100, modifier: 1, slideShadows: true } });
+        new Swiper(".mySwiper", { effect: "coverflow", grabCursor: true, centeredSlides: true, slidesPerView: "auto", loop: true, autoplay: { delay: 2500 } });
 
         const scriptURL = 'https://script.google.com/macros/s/AKfycbx7HPTQ-piP7fv6KNUNo7ARdDyhrFoNOfUd0OIoRJk1pIvHfzvM_pUqZrtsCcYTrUQK4A/exec';
         const form = document.getElementById('rsvp-form');
@@ -91,18 +72,17 @@
             btn.innerHTML = "INVIANDO...";
             btn.disabled = true;
 
-            // Trasformiamo i dati in un formato che Google Script accetta meglio
             fetch(scriptURL, { 
                 method: 'POST', 
                 body: new FormData(form)
             })
             .then(response => {
-                alert("Invio completato con successo! ✅");
+                alert("Ciao! La tua risposta è stata inviata correttamente! ✅");
                 form.style.display = 'none';
                 document.getElementById('success-msg').style.display = 'block';
             })
             .catch(error => {
-                alert("Errore durante l'invio. Riprova!");
+                alert("C'è stato un errore. Riprova!");
                 btn.innerHTML = "INVIA RISPOSTA ⚡️";
                 btn.disabled = false;
             });
