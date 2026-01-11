@@ -95,53 +95,60 @@
         </div>
     </section>
 
-   <script>
-        // 1. Inizializzazione Grafica
-        window.onload = () => {
-            if (typeof AOS !== 'undefined') AOS.init({ duration: 1000 });
-            if (typeof Swiper !== 'undefined') {
-                new Swiper(".mySwiper", {
-                    effect: "coverflow",
-                    centeredSlides: true,
-                    slidesPerView: "auto",
-                    loop: true,
-                    autoplay: { delay: 2500 }
-                });
-            }
-        };
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
 
-        // 2. INVIO DATI - QUI C'ERA L'ERRORE
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMH2tSRZg69niY8ib7x9v_fwF1KF_XMKpbzkYJA3zo9O2zc22fD0cQwJg8AazOeNtI0Q/exec';
-        
-        const form = document.getElementById('rsvp-form');
+    // 1️⃣ Animazioni (protette)
+    if (typeof AOS !== 'undefined') {
+        AOS.init({ duration: 1000 });
+    }
 
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            const btn = document.getElementById('submit-btn');
-            btn.innerHTML = "INVIANDO...";
-            btn.disabled = true;
-
-            const nome = document.getElementById('nome').value;
-            const partecipa = document.getElementById('partecipa').value;
-            const canzone = document.getElementById('canzone').value;
-
-            // QUESTA RIGA MANCAVA NEL TUO CODICE:
-            const finalURL = SCRIPT_URL + "?Nome=" + encodeURIComponent(nome) + "&Partecipa=" + encodeURIComponent(partecipa) + "&Canzone=" + encodeURIComponent(canzone);
-
-            fetch(finalURL)
-            .then(() => {
-                alert("Inviato correttamente! ✅");
-                 form.style.display = 'none';
-                 document.getElementById('success-msg').style.display = 'block';
-            })
-            .catch(() => {
-                alert("Errore di rete!");
-                btn.disabled = false;
-                btn.innerHTML = "INVIA RISPOSTA ⚡️";
-            });
+    if (typeof Swiper !== 'undefined') {
+        new Swiper(".mySwiper", {
+            effect: "coverflow",
+            centeredSlides: true,
+            slidesPerView: "auto",
+            loop: true,
+            autoplay: { delay: 2500 }
         });
+    }
 
-    </script>
+    // 2️⃣ FORM (protetto)
+    const form = document.getElementById('rsvp-form');
+    if (!form) return; // ⛔ evita crash
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+
+        const btn = document.getElementById('submit-btn');
+        btn.innerHTML = "INVIANDO...";
+        btn.disabled = true;
+
+        const nome = document.getElementById('nome').value;
+        const partecipa = document.getElementById('partecipa').value;
+        const canzone = document.getElementById('canzone').value;
+
+        const finalURL =
+            "https://script.google.com/macros/s/AKfycbzMH2tSRZg69niY8ib7x9v_fwF1KF_XMKpbzkYJA3zo9O2zc22fD0cQwJg8AazOeNtI0Q/exec"
+            + "?Nome=" + encodeURIComponent(nome)
+            + "&Partecipa=" + encodeURIComponent(partecipa)
+            + "&Canzone=" + encodeURIComponent(canzone);
+
+        fetch(finalURL)
+        .then(() => {
+            alert("Inviato correttamente! ✅");
+            form.style.display = 'none';
+            document.getElementById('success-msg').style.display = 'block';
+        })
+        .catch(() => {
+            alert("Errore di rete!");
+            btn.disabled = false;
+            btn.innerHTML = "INVIA RISPOSTA ⚡️";
+        });
+    });
+});
+</script>
+
    
 </body>
 </html>
