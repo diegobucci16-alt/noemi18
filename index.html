@@ -190,172 +190,169 @@
         <p class="text-slate-400 text-sm italic mb-6">Solo per la protagonista della serata</p>
         
         <div class="space-y-4">
-            <input type="password" id="birthday-pass" 
-                   class="w-full rounded-2xl p-4 text-center tracking-[0.5em] font-bold" 
-                   placeholder="PASSWORD">
-            
-            <button onclick="checkAccess()" 
-                    class="w-full bg-transparent border-2 border-blue-600 hover:bg-blue-600 py-4 rounded-2xl font-black transition-all uppercase tracking-widest">
-                Accedi alla Notte ⚡️
-            </button>
-            <p id="error-pass" class="text-red-500 text-xs font-bold mt-2 hidden">Password errata. Riprova, Noemi!</p>
-        </div>
-    </div>
+    <input type="password" id="birthday-pass" 
+           class="w-full rounded-2xl p-4 text-center tracking-[0.5em] font-bold text-white bg-black border border-blue-600" 
+           placeholder="PASSWORD">
+    
+   <button id="submit-btn-pass" onclick="checkAccess()" class="...">
+    Accedi alla Notte ⚡️
+</button>
+    <p id="error-pass" class="text-red-500 text-xs font-bold mt-2 hidden text-center"></p>
+</div>
 </section>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
-        function createEmoji() {
-            const emojis = ['🔞'];
-            const emoji = document.createElement('div');
-            emoji.classList.add('emoji-particle');
-            emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-            emoji.style.left = Math.random() * 100 + "vw";
-            const duration = Math.random() * 3 + 3;
-            emoji.style.animationDuration = duration + "s";
-            emoji.style.opacity = Math.random();
-            document.body.appendChild(emoji);
-            setTimeout(() => { emoji.remove(); }, duration * 1000);
-        }
-        setInterval(createEmoji, 500);
+    // --- CONFIGURAZIONE LOGICA ACCESSO ---
+    const MAX_TENTATIVI = 3;
+    const TEMPO_BLOCCO_MS = 24 * 60 * 60 * 1000; // 24 ore
+    const PASSWORD_SEGRETA = "ZARANOEMIDIEGOSTELLA1211"; 
+    let intervalloCountdown;
 
-        const glow = document.getElementById('cursor-glow');
-        document.addEventListener('mousemove', (e) => {
-            glow.style.left = e.clientX + 'px';
-            glow.style.top = e.clientY + 'px';
+    // --- EFFETTI GRAFICI (EMOJI & MOUSE) ---
+    function createEmoji() {
+        const emojis = ['🔞'];
+        const emoji = document.createElement('div');
+        emoji.classList.add('emoji-particle');
+        emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+        emoji.style.left = Math.random() * 100 + "vw";
+        const duration = Math.random() * 3 + 3;
+        emoji.style.animationDuration = duration + "s";
+        emoji.style.opacity = Math.random();
+        document.body.appendChild(emoji);
+        setTimeout(() => { emoji.remove(); }, duration * 1000);
+    }
+    setInterval(createEmoji, 500);
+
+    const glow = document.getElementById('cursor-glow');
+    document.addEventListener('mousemove', (e) => {
+        glow.style.left = e.clientX + 'px';
+        glow.style.top = e.clientY + 'px';
+    });
+
+    // --- COUNTDOWN EVENTO ---
+    function updateCountdown() {
+        const target = new Date("April 18, 2026 21:00:00").getTime();
+        const now = new Date().getTime();
+        const diff = target - now;
+        document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+        document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        document.getElementById('minutes').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // --- INIZIALIZZAZIONE CARICAMENTO ---
+    window.onload = () => {
+        AOS.init({ duration: 1200, once: false });
+        new Swiper(".mySwiper", {
+            effect: "coverflow",
+            centeredSlides: true,
+            slidesPerView: "auto",
+            loop: true,
+            autoplay: { delay: 2000 }
         });
+        controlloBlocco(); // Controlla se Noemi è bloccata
+    };
 
-        function updateCountdown() {
-            const target = new Date("April 18, 2026 21:00:00").getTime();
-            const now = new Date().getTime();
-            const diff = target - now;
-            document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-            document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            document.getElementById('minutes').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        }
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
-
-        window.onload = () => {
-            AOS.init({ duration: 1200, once: false });
-            new Swiper(".mySwiper", {
-                effect: "coverflow",
-                centeredSlides: true,
-                slidesPerView: "auto",
-                loop: true,
-                autoplay: { delay: 2000 }
-            });
-        };
-
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMH2tSRZg69niY8ib7x9v_fwF1KF_XMKpbzkYJA3zo9O2zc22fD0cQwJg8AazOeNtI0Q/exec';
-        document.getElementById('rsvp-form').addEventListener('submit', e => {
+    // --- GESTIONE RSVP FORM ---
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMH2tSRZg69niY8ib7x9v_fwF1KF_XMKpbzkYJA3zo9O2zc22fD0cQwJg8AazOeNtI0Q/exec';
+    const rsvpForm = document.getElementById('rsvp-form');
+    if(rsvpForm) {
+        rsvpForm.addEventListener('submit', e => {
             e.preventDefault();
             const btn = document.getElementById('submit-btn');
             btn.innerHTML = "INVIANDO...";
             btn.disabled = true;
-
             const nome = document.getElementById('nome').value;
             const partecipa = document.getElementById('partecipa').value;
             const canzone = document.getElementById('canzone').value;
-
             const finalURL = SCRIPT_URL + "?Nome=" + encodeURIComponent(nome) + "&Partecipa=" + encodeURIComponent(partecipa) + "&Canzone=" + encodeURIComponent(canzone);
-
             fetch(finalURL, { method: 'POST', mode: 'no-cors' })
             .then(() => {
                 document.getElementById('rsvp-form').classList.add('hidden');
                 document.getElementById('success-msg').classList.remove('hidden');
             });
         });
-    // Configurazione
-const MAX_TENTATIVI = 3;
-const TEMPO_BLOCCO_MS = 24 * 60 * 60 * 1000; // 24 ore
-const secretPass = "ZARANOEMIDIEGOSTELLA1211"; // Puoi cambiare questa password come preferisci
-let intervalloCountdown; // Variabile per gestire l'aggiornamento ogni secondo
+    }
 
-window.addEventListener('load', () => {
-    controlloBlocco();
-});
-
-function controlloBlocco() {
-    const oraBlocco = localStorage.getItem('timestampBlocco');
-    
-    if (oraBlocco) {
-        const tempoTrascorso = Date.now() - parseInt(oraBlocco);
-        
-        if (tempoTrascorso < TEMPO_BLOCCO_MS) {
-            avviaTimerVisuale(parseInt(oraBlocco));
-        } else {
-            // Tempo scaduto: sblocchiamo
-            resettaBlocco();
+    // --- LOGICA AREA RISERVATA (BLOCCO 24H) ---
+    function controlloBlocco() {
+        const oraBlocco = localStorage.getItem('timestampBlocco');
+        if (oraBlocco) {
+            const tempoTrascorso = Date.now() - parseInt(oraBlocco);
+            if (tempoTrascorso < TEMPO_BLOCCO_MS) {
+                avviaTimerVisuale(parseInt(oraBlocco));
+            } else {
+                resettaBlocco();
+            }
         }
     }
-}
 
-function avviaTimerVisuale(timestampInizio) {
-    const passInput = document.getElementById('birthday-pass');
-    const submitBtn = document.querySelector('button[onclick="checkAccess()"]');
-    const errorMsg = document.getElementById('error-pass');
-
-    passInput.disabled = true;
-    submitBtn.disabled = true;
-    submitBtn.innerText = "ACCESSO BLOCCATO 🔒";
-    submitBtn.style.opacity = "0.5";
-    errorMsg.classList.remove('hidden');
-
-    // Funzione che aggiorna il testo ogni secondo
-    intervalloCountdown = setInterval(() => {
-        const adesso = Date.now();
-        const rimanente = TEMPO_BLOCCO_MS - (adesso - timestampInizio);
-
-        if (rimanente <= 0) {
-            clearInterval(intervalloCountdown);
-            resettaBlocco();
-            location.reload(); // Ricarica per permettere nuovi tentativi
-        } else {
-            const ore = Math.floor(rimanente / (1000 * 60 * 60));
-            const minuti = Math.floor((rimanente % (1000 * 60 * 60)) / (1000 * 60));
-            const secondi = Math.floor((rimanente % (1000 * 60)) / 1000);
-            
-            errorMsg.innerHTML = `Troppi tentativi. Riprova tra:<br><span class="text-xl font-black text-white">${ore}h ${minuti}m ${secondi}s</span>`;
-        }
-    }, 1000);
-}
-
-function resettaBlocco() {
-    localStorage.removeItem('timestampBlocco');
-    localStorage.removeItem('tentativiFalliti');
-    const errorMsg = document.getElementById('error-pass');
-    if(errorMsg) errorMsg.classList.add('hidden');
-}
-
-function checkAccess() {
-    const passInput = document.getElementById('birthday-pass');
-    const errorMsg = document.getElementById('error-pass');
-    let tentativi = parseInt(localStorage.getItem('tentativiFalliti')) || 0;
-
-    if (passInput.value.toUpperCase() === PASSWORD_SEGRETA) {
-        resettaBlocco();
-        window.location.href = "exclusive-noemi.html";
-    } else {
-        tentativi++;
-        localStorage.setItem('tentativiFalliti', tentativi);
-        
-        // Animazione vibrazione
-        passInput.animate([{ transform: 'translateX(-5px)' }, { transform: 'translateX(5px)' }, { transform: 'translateX(0)' }], { duration: 300 });
-
-        if (tentativi >= MAX_TENTATIVI) {
-            const oraAttuale = Date.now();
-            localStorage.setItem('timestampBlocco', oraAttuale.toString());
-            avviaTimerVisuale(oraAttuale);
-        } else {
-            errorMsg.innerText = `Password errata! Rimangono ${MAX_TENTATIVI - tentativi} tentativi.`;
-            errorMsg.classList.remove('hidden');
-            passInput.value = "";
+    function attivaInterfacciaBlocco() {
+        const passInput = document.getElementById('birthday-pass');
+        const submitBtn = document.getElementById('submit-btn-pass'); 
+        if (passInput && submitBtn) {
+            passInput.disabled = true;
+            passInput.placeholder = "BLOCCATO";
+            submitBtn.disabled = true;
+            submitBtn.innerText = "ACCESSO NEGATO 🔒";
+            submitBtn.style.opacity = "0.5";
         }
     }
-}
-    
-    </script>
+
+    function avviaTimerVisuale(timestampInizio) {
+        attivaInterfacciaBlocco();
+        const errorMsg = document.getElementById('error-pass');
+        
+        intervalloCountdown = setInterval(() => {
+            const adesso = Date.now();
+            const rimanente = TEMPO_BLOCCO_MS - (adesso - timestampInizio);
+
+            if (rimanente <= 0) {
+                clearInterval(intervalloCountdown);
+                resettaBlocco();
+                location.reload();
+            } else {
+                const ore = Math.floor(rimanente / (1000 * 60 * 60));
+                const minuti = Math.floor((rimanente % (1000 * 60 * 60)) / (1000 * 60));
+                const secondi = Math.floor((rimanente % (1000 * 60)) / 1000);
+                errorMsg.classList.remove('hidden');
+                errorMsg.innerHTML = `Troppi tentativi. Riprova tra:<br><span class="text-xl font-black text-white">${ore}h ${minuti}m ${secondi}s</span>`;
+            }
+        }, 1000);
+    }
+
+    function resettaBlocco() {
+        localStorage.removeItem('timestampBlocco');
+        localStorage.removeItem('tentativiFalliti');
+    }
+
+    function checkAccess() {
+        const passInput = document.getElementById('birthday-pass');
+        const errorMsg = document.getElementById('error-pass');
+        let tentativi = parseInt(localStorage.getItem('tentativiFalliti')) || 0;
+
+        if (passInput.value.toUpperCase() === PASSWORD_SEGRETA) {
+            resettaBlocco();
+            window.location.href = "exclusive-noemi.html";
+        } else {
+            tentativi++;
+            localStorage.setItem('tentativiFalliti', tentativi);
+            passInput.animate([{ transform: 'translateX(-5px)' }, { transform: 'translateX(5px)' }, { transform: 'translateX(0)' }], { duration: 300 });
+
+            if (tentativi >= MAX_TENTATIVI) {
+                const oraAttuale = Date.now();
+                localStorage.setItem('timestampBlocco', oraAttuale.toString());
+                avviaTimerVisuale(oraAttuale);
+            } else {
+                errorMsg.innerText = `Password errata! Rimangono ${MAX_TENTATIVI - tentativi} tentativi.`;
+                errorMsg.classList.remove('hidden');
+                passInput.value = "";
+            }
+        }
+    }
+</script>
 </body>
 </html> 
