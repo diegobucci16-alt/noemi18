@@ -99,14 +99,13 @@
         <section class="w-full max-w-6xl mb-24" data-aos="fade-up">
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide"><img src="image.png"></div>
-                    <div class="swiper-slide"><img src="noemi3.jpeg"></div>
-                    <div class="swiper-slide"><img src="noemiq4.jpeg"></div>
-                    <div class="swiper-slide"><img src="noemi5.jpeg"></div>
-                    <div class="swiper-slide"><img src="noemi6.jpeg"></div>
-                    <div class="swiper-slide"><img src="noemi7.jpeg"></div>
-                    <div class="swiper-slide"><img src="diego2.jpeg"></div>
-                    <div class="swiper-slide"><img src="noemi1.jpeg"></div>
+                    <div class="swiper-slide"><img src="dada1.jpeg"></div>
+                    <div class="swiper-slide"><img src="dada2.jpeg"></div>
+                    <div class="swiper-slide"><img src="dada3.jpeg"></div>
+                    <div class="swiper-slide"><img src="dada4.jpeg"></div>
+                    <div class="swiper-slide"><img src="dada5.jpeg"></div>
+                    <div class="swiper-slide"><img src="dada6.jpeg"></div>
+                    <div class="swiper-slide"><img src="dada7.jpeg"></div>
                 </div>
             </div>
         </section>
@@ -127,17 +126,32 @@
             </div>
 
             <div class="card-glass p-8 rounded-[2.5rem] flex flex-col" data-aos="flip-right">
-                <div class="flex items-center justify-center space-x-4 mb-6">
-                    <span class="text-3xl">📍</span>
-                    <h3 class="font-montserrat font-black tracking-widest text-blue-400 text-xl uppercase">Location</h3>
-                </div>
-                <p class="text-center text-slate-300 mb-6 font-medium">Chiesa di San Patrignano<br>Ospedaletto (Rimini)</p>
-                <div class="map-container mb-6">
-                    <iframe class="w-full h-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2861.123456789!2d12.55!3d44.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDTCsDAwJzAwLjAiTiAxMsKwMzMnMDAuMCJF!5e0!3m2!1sit!2sit!4v123456789" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                </div>
-                <a href="https://maps.google.com" target="_blank" class="w-full bg-blue-600 py-4 rounded-2xl font-black text-center hover:bg-blue-500 transition-all">INDICAZIONI 🚗</a>
-            </div>
-        </div>
+    <div class="flex items-center justify-center space-x-4 mb-6">
+        <span class="text-3xl">📍</span>
+        <h3 class="font-montserrat font-black tracking-widest text-blue-400 text-xl uppercase">Location</h3>
+    </div>
+
+    <p class="text-center text-slate-300 mb-6 font-medium">
+        Il Podere del Germano Reale<br>
+        Via Puglie, 8/10, Coriano (RN)
+    </p>
+
+    <div class="map-container mb-6">
+        <iframe 
+            class="w-full h-full" 
+            src="https://www.bing.com/maps/directions?ty=0&v=2&rtp=%7Epos.43.9670257_12.6178388__Il%20Podere%20del%20Germano%20Reale_&mode=d&lvl=16&style=r" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy">
+        </iframe>
+    </div>
+
+    <a href="https://www.google.com/maps/dir/?api=1&destination=Il+Podere+del+Germano+Reale+Coriano" 
+       target="_blank" 
+       class="w-full bg-blue-600 py-4 rounded-2xl font-black text-center hover:bg-blue-500 transition-all text-white block">
+        INDICAZIONI 🚗 (Arrivo 20:30)
+    </a>
+</div>
 
         <section class="w-full max-w-5xl mb-20" data-aos="zoom-in">
             <div class="card-glass p-8 rounded-[2.5rem] text-center border-2 border-dashed border-blue-500/40">
@@ -167,7 +181,27 @@
             </div>
         </section>
     </main>
-
+    <section class="w-full max-w-lg mb-24" data-aos="fade-up">
+    <div class="card-glass p-8 rounded-[2.5rem] border-2 border-neon-blue/30 text-center relative overflow-hidden">
+        <div class="absolute -top-10 -right-10 w-32 h-32 bg-blue-600/20 blur-3xl rounded-full"></div>
+        
+        <div class="text-4xl mb-4">👑</div>
+        <h3 class="font-montserrat font-black tracking-widest text-blue-400 mb-2 uppercase">Area Riservata</h3>
+        <p class="text-slate-400 text-sm italic mb-6">Solo per la protagonista della serata</p>
+        
+        <div class="space-y-4">
+            <input type="password" id="birthday-pass" 
+                   class="w-full rounded-2xl p-4 text-center tracking-[0.5em] font-bold" 
+                   placeholder="PASSWORD">
+            
+            <button onclick="checkAccess()" 
+                    class="w-full bg-transparent border-2 border-blue-600 hover:bg-blue-600 py-4 rounded-2xl font-black transition-all uppercase tracking-widest">
+                Accedi alla Notte ⚡️
+            </button>
+            <p id="error-pass" class="text-red-500 text-xs font-bold mt-2 hidden">Password errata. Riprova, Noemi!</p>
+        </div>
+    </div>
+</section>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
@@ -233,6 +267,27 @@
                 document.getElementById('success-msg').classList.remove('hidden');
             });
         });
+    function checkAccess() {
+    const passInput = document.getElementById('birthday-pass');
+    const errorMsg = document.getElementById('error-pass');
+    const secretPass = "ZARANOEMIDIEGOSTELLA1211"; // Puoi cambiare questa password come preferisci
+
+    if (passInput.value.toUpperCase() === secretPass) {
+        // Qui inserisci il nome del file della nuova pagina
+        window.location.href = "exclusive-noemi.html"; 
+    } else {
+        errorMsg.classList.remove('hidden');
+        passInput.classList.add('border-red-500');
+        // Effetto vibrazione per errore
+        passInput.animate([
+            { transform: 'translateX(-5px)' },
+            { transform: 'translateX(5px)' },
+            { transform: 'translateX(-5px)' },
+            { transform: 'translateX(0)' }
+        ], { duration: 300 });
+    }
+}
+    
     </script>
 </body>
 </html>

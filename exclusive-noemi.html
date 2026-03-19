@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Solo per Noemi 💙</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Mr+Dafoe&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <style>
+        body {
+            background: radial-gradient(circle at center, #001133 0%, #000000 100%);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .neon-border {
+            border: 2px solid #00eaff;
+            box-shadow: 0 0 20px rgba(0, 234, 255, 0.4);
+        }
+
+        .cursive-font {
+            font-family: 'Mr Dafoe', cursive;
+            color: #00eaff;
+            text-shadow: 0 0 10px #00eaff;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .swiper { width: 100%; max-width: 400px; padding: 20px; }
+        .swiper-slide { 
+            border-radius: 20px; 
+            overflow: hidden; 
+            aspect-ratio: 3/4;
+            border: 2px solid #fff;
+        }
+        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Cuori che cadono */
+        .heart {
+            position: fixed;
+            color: #00eaff;
+            font-size: 20px;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="relative z-10 flex flex-col items-center py-10 px-6 text-center">
+        
+        <div class="mb-10">
+            <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-2">A Te, Noemi</h1>
+            <p class="cursive-font text-5xl">La donna della mia vita</p>
+        </div>
+
+        <section class="w-full mb-12">
+            <div class="swiper loveSwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="noi1.jpg" alt="Noi"></div>
+                    <div class="swiper-slide"><img src="noi2.jpg" alt="Noi"></div>
+                    <div class="swiper-slide"><img src="noi3.jpg" alt="Noi"></div>
+                    <div class="swiper-slide"><img src="noi4.jpg" alt="Noi"></div>
+                </div>
+            </div>
+            <p class="text-xs text-blue-400 mt-4 uppercase tracking-[0.3em]">Scorri per i nostri ricordi ⚡️</p>
+        </section>
+
+        <section class="glass-card p-8 rounded-[2.5rem] max-w-lg w-full neon-border">
+            <div class="text-3xl mb-4">💙</div>
+            <h3 class="text-xl font-black mb-4 uppercase text-blue-300">Il Mio Messaggio</h3>
+            <div class="space-y-4 text-slate-200 italic leading-relaxed">
+                <p>"tu sei la cosa piu bella che abbia mai visto"</p>
+               
+            </div>
+            
+            <div class="mt-8 pt-6 border-t border-white/10">
+                <p class="font-black text-sm uppercase tracking-widest text-blue-400">Per Sempre Tuo.</p>
+            </div>
+        </section>
+
+        <a href="index.html" class="mt-12 text-xs text-slate-500 hover:text-white transition-all uppercase tracking-widest">
+            ← Torna alla festa
+        </a>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // Inizializza Swiper (Effetto Cards)
+        new Swiper(".loveSwiper", {
+            effect: "cards",
+            grabCursor: true,
+            loop: true,
+        });
+
+        // Funzione per i cuoricini blu che cadono
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '💙';
+            heart.style.left = Math.random() * 100 + "vw";
+            const duration = Math.random() * 3 + 4;
+            heart.style.animationDuration = duration + "s";
+            heart.style.opacity = Math.random();
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, duration * 1000);
+        }
+        setInterval(createHeart, 600);
+    </script>
+</body>
+</html>
