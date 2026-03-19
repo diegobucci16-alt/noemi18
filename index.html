@@ -113,7 +113,7 @@
         <div class="grid md:grid-cols-2 gap-8 w-full max-w-5xl mb-12">
             <div class="card-glass p-1 rounded-[2.5rem] overflow-hidden" data-aos="flip-left">
                 <div class="h-64 w-full relative">
-                    <img src="nomei8.jpeg" class="w-full h-full object-cover opacity-80">
+                    <img src="dada8.jpeg" class="w-full h-full object-cover opacity-80">
                     <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 to-transparent"></div>
                     <div class="absolute bottom-4 left-0 w-full text-center">
                         <h3 class="font-montserrat font-black tracking-[0.3em] text-blue-400 text-xl">DRESS CODE</h3>
@@ -136,23 +136,23 @@
         Via Puglie, 8/10, Coriano (RN)
     </p>
 
-    <div class="map-container mb-6">
+    <div class="map-container mb-6" style="height: 250px; border-radius: 20px; overflow: hidden; border: 2px solid #0047FF;">
         <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2870.380292850311!2d12.61526387661642!3d43.96702953246702!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132ce87ece6464d5%3A0x15b3dead6868a82b!2sIl%20Podere%20del%20Germano%20Reale!5e0!3m2!1sit!2sit!4v1710000000000!5m2!1sit!2sit" 
             class="w-full h-full" 
-            src="https://www.bing.com/maps/directions?ty=0&v=2&rtp=%7Epos.43.9670257_12.6178388__Il%20Podere%20del%20Germano%20Reale_&mode=d&lvl=16&style=r" 
             style="border:0;" 
             allowfullscreen="" 
-            loading="lazy">
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
         </iframe>
     </div>
 
-    <a href="https://www.google.com/maps/dir/?api=1&destination=Il+Podere+del+Germano+Reale+Coriano" 
+    <a href="https://maps.app.goo.gl/uS8xYkH3MhJpS4rS6" 
        target="_blank" 
        class="w-full bg-blue-600 py-4 rounded-2xl font-black text-center hover:bg-blue-500 transition-all text-white block">
         INDICAZIONI 🚗 (Arrivo 20:30)
     </a>
 </div>
-
         <section class="w-full max-w-5xl mb-20" data-aos="zoom-in">
             <div class="card-glass p-8 rounded-[2.5rem] text-center border-2 border-dashed border-blue-500/40">
                 <div class="text-4xl mb-4">📸</div>
@@ -267,27 +267,95 @@
                 document.getElementById('success-msg').classList.remove('hidden');
             });
         });
-    function checkAccess() {
+    // Configurazione
+const MAX_TENTATIVI = 3;
+const TEMPO_BLOCCO_MS = 24 * 60 * 60 * 1000; // 24 ore
+const secretPass = "ZARANOEMIDIEGOSTELLA1211"; // Puoi cambiare questa password come preferisci
+let intervalloCountdown; // Variabile per gestire l'aggiornamento ogni secondo
+
+window.addEventListener('load', () => {
+    controlloBlocco();
+});
+
+function controlloBlocco() {
+    const oraBlocco = localStorage.getItem('timestampBlocco');
+    
+    if (oraBlocco) {
+        const tempoTrascorso = Date.now() - parseInt(oraBlocco);
+        
+        if (tempoTrascorso < TEMPO_BLOCCO_MS) {
+            avviaTimerVisuale(parseInt(oraBlocco));
+        } else {
+            // Tempo scaduto: sblocchiamo
+            resettaBlocco();
+        }
+    }
+}
+
+function avviaTimerVisuale(timestampInizio) {
+    const passInput = document.getElementById('birthday-pass');
+    const submitBtn = document.querySelector('button[onclick="checkAccess()"]');
+    const errorMsg = document.getElementById('error-pass');
+
+    passInput.disabled = true;
+    submitBtn.disabled = true;
+    submitBtn.innerText = "ACCESSO BLOCCATO 🔒";
+    submitBtn.style.opacity = "0.5";
+    errorMsg.classList.remove('hidden');
+
+    // Funzione che aggiorna il testo ogni secondo
+    intervalloCountdown = setInterval(() => {
+        const adesso = Date.now();
+        const rimanente = TEMPO_BLOCCO_MS - (adesso - timestampInizio);
+
+        if (rimanente <= 0) {
+            clearInterval(intervalloCountdown);
+            resettaBlocco();
+            location.reload(); // Ricarica per permettere nuovi tentativi
+        } else {
+            const ore = Math.floor(rimanente / (1000 * 60 * 60));
+            const minuti = Math.floor((rimanente % (1000 * 60 * 60)) / (1000 * 60));
+            const secondi = Math.floor((rimanente % (1000 * 60)) / 1000);
+            
+            errorMsg.innerHTML = `Troppi tentativi. Riprova tra:<br><span class="text-xl font-black text-white">${ore}h ${minuti}m ${secondi}s</span>`;
+        }
+    }, 1000);
+}
+
+function resettaBlocco() {
+    localStorage.removeItem('timestampBlocco');
+    localStorage.removeItem('tentativiFalliti');
+    const errorMsg = document.getElementById('error-pass');
+    if(errorMsg) errorMsg.classList.add('hidden');
+}
+
+function checkAccess() {
     const passInput = document.getElementById('birthday-pass');
     const errorMsg = document.getElementById('error-pass');
-    const secretPass = "ZARANOEMIDIEGOSTELLA1211"; // Puoi cambiare questa password come preferisci
+    let tentativi = parseInt(localStorage.getItem('tentativiFalliti')) || 0;
 
-    if (passInput.value.toUpperCase() === secretPass) {
-        // Qui inserisci il nome del file della nuova pagina
-        window.location.href = "exclusive-noemi.html"; 
+    if (passInput.value.toUpperCase() === PASSWORD_SEGRETA) {
+        resettaBlocco();
+        window.location.href = "exclusive-noemi.html";
     } else {
-        errorMsg.classList.remove('hidden');
-        passInput.classList.add('border-red-500');
-        // Effetto vibrazione per errore
-        passInput.animate([
-            { transform: 'translateX(-5px)' },
-            { transform: 'translateX(5px)' },
-            { transform: 'translateX(-5px)' },
-            { transform: 'translateX(0)' }
-        ], { duration: 300 });
+        tentativi++;
+        localStorage.setItem('tentativiFalliti', tentativi);
+        
+        // Animazione vibrazione
+        passInput.animate([{ transform: 'translateX(-5px)' }, { transform: 'translateX(5px)' }, { transform: 'translateX(0)' }], { duration: 300 });
+
+        if (tentativi >= MAX_TENTATIVI) {
+            const oraAttuale = Date.now();
+            localStorage.setItem('timestampBlocco', oraAttuale.toString());
+            avviaTimerVisuale(oraAttuale);
+        } else {
+            errorMsg.innerText = `Password errata! Rimangono ${MAX_TENTATIVI - tentativi} tentativi.`;
+            errorMsg.classList.remove('hidden');
+            passInput.value = "";
+        }
     }
 }
     
     </script>
 </body>
-</html>
+</html> 
