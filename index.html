@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Noemi • 18 - THE ELECTRIC NIGHT</title>
+    <title>Noemi • 18 </title>
     
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Mr+Dafoe&display=swap" rel="stylesheet"/>
@@ -64,22 +64,30 @@
             border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%); z-index: 0;
         }
         
-        /* Animazione della caduta */
         .emoji-particle {
-            position: fixed;
-            top: -50px;
-            font-size: 1.8rem;
-            pointer-events: none;
-            z-index: 100;
+            position: fixed; top: -50px; font-size: 1.8rem; pointer-events: none; z-index: 100;
             animation: fall linear forwards;
         }
 
-        @keyframes fall {
-            to { transform: translateY(110vh) rotate(360deg); }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+        /* MODALE POPUP */
+        #custom-alert {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.9);
+            display: flex; align-items: center; justify-content: center; z-index: 9999;
         }
     </style>
 </head>
 <body class="animated-bg text-white">
+
+    <div id="custom-alert">
+        <div class="card-glass p-8 rounded-[2.5rem] max-w-sm w-full text-center border-2 border-blue-500 mx-4">
+            <h3 class="text-3xl font-black metallic-text mb-4 uppercase">ATTENZIONE! ⚡️</h3>
+            <p class="text-slate-300 text-lg mb-6">"Mi raccomando, arrivate alle <span class="text-blue-400 font-bold">20:30</span> e non fate ritardi!"</p>
+            <button onclick="document.getElementById('custom-alert').style.display='none'" class="w-full bg-blue-600 py-4 rounded-2xl font-black text-white hover:bg-blue-400 transition-all">HO CAPITO, SARÒ PUNTUALE! 🤟</button>
+        </div>
+    </div>
+
     <div id="cursor-glow"></div>
 
     <main class="relative z-10 flex flex-col items-center py-12 px-4">
@@ -106,9 +114,26 @@
                     <div class="swiper-slide"><img src="dada5.jpeg"></div>
                     <div class="swiper-slide"><img src="dada6.jpeg"></div>
                     <div class="swiper-slide"><img src="dada7.jpeg"></div>
+                    <div class="swiper-slide"><img src="image.png"></div>
                 </div>
             </div>
         </section>
+
+        <div class="grid md:grid-cols-2 gap-8 w-full max-w-5xl mb-12">
+            <div class="card-glass p-8 rounded-[2.5rem] text-center border-b-4 border-blue-600" data-aos="fade-right">
+                <div class="text-4xl mb-4">🍕</div>
+                <h3 class="font-montserrat font-black tracking-widest text-blue-400 text-xl uppercase mb-2">Buffet </h3>
+                
+               
+            </div>
+
+            <div class="card-glass p-8 rounded-[2.5rem] text-center border-b-4 border-neon-blue" data-aos="fade-left">
+                <div class="text-4xl mb-4">🍹</div>
+                <h3 class="font-montserrat font-black tracking-widest text-blue-400 text-xl uppercase mb-2">Bar</h3>
+                
+                
+            </div>
+        </div>
 
         <div class="grid md:grid-cols-2 gap-8 w-full max-w-5xl mb-12">
             <div class="card-glass p-1 rounded-[2.5rem] overflow-hidden" data-aos="flip-left">
@@ -126,33 +151,23 @@
             </div>
 
             <div class="card-glass p-8 rounded-[2.5rem] flex flex-col" data-aos="flip-right">
-    <div class="flex items-center justify-center space-x-4 mb-6">
-        <span class="text-3xl">📍</span>
-        <h3 class="font-montserrat font-black tracking-widest text-blue-400 text-xl uppercase">Location</h3>
-    </div>
+                <div class="flex items-center justify-center space-x-4 mb-6">
+                    <span class="text-3xl">📍</span>
+                    <h3 class="font-montserrat font-black tracking-widest text-blue-400 text-xl uppercase">Location</h3>
+                </div>
+                <p class="text-center text-slate-300 mb-6 font-medium">
+                    Il Podere del Germano Reale<br>
+                    Via Puglie, 8/10, Coriano (RN)
+                </p>
+                <div class="map-container mb-6">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2871.464670265147!2d12.5938959!3d43.9547377!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132cc4999120667d%3A0xc0693a9505f0370f!2sIl%20Podere%20del%20Germano%20Reale!5e0!3m2!1sit!2sit!4v1700000000000" class="w-full h-full" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <a href="https://maps.app.goo.gl/hGz7S9K3E3K2" target="_blank" class="w-full bg-blue-600 py-4 rounded-2xl font-black text-center hover:bg-blue-500 transition-all text-white block uppercase">
+                    INDICAZIONI 🚗 (Arrivo 20:30)
+                </a>
+            </div>
+        </div>
 
-    <p class="text-center text-slate-300 mb-6 font-medium">
-        Il Podere del Germano Reale<br>
-        Via Puglie, 8/10, Coriano (RN)
-    </p>
-
-    <div class="map-container mb-6" style="height: 250px; border-radius: 20px; overflow: hidden; border: 2px solid #0047FF;">
-        <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2870.380292850311!2d12.61526387661642!3d43.96702953246702!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132ce87ece6464d5%3A0x15b3dead6868a82b!2sIl%20Podere%20del%20Germano%20Reale!5e0!3m2!1sit!2sit!4v1710000000000!5m2!1sit!2sit" 
-            class="w-full h-full" 
-            style="border:0;" 
-            allowfullscreen="" 
-            loading="lazy" 
-            referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-    </div>
-
-    <a href="https://maps.app.goo.gl/uS8xYkH3MhJpS4rS6" 
-       target="_blank" 
-       class="w-full bg-blue-600 py-4 rounded-2xl font-black text-center hover:bg-blue-500 transition-all text-white block">
-        INDICAZIONI 🚗 (Arrivo 20:30)
-    </a>
-</div>
         <section class="w-full max-w-5xl mb-20" data-aos="zoom-in">
             <div class="card-glass p-8 rounded-[2.5rem] text-center border-2 border-dashed border-blue-500/40">
                 <div class="text-4xl mb-4">📸</div>
@@ -176,41 +191,35 @@
                 <button type="submit" id="submit-btn" class="w-full bg-blue-600 hover:bg-blue-400 py-6 rounded-2xl font-black text-xl transition-all">INVIA RISPOSTA 🚀</button>
             </form>
             <div id="success-msg" class="hidden text-center py-10">
-                <div class="text-7xl mb-6 animate-bounce">🤟</div>
+                <div class="text-7xl mb-6 animate-bounce"><img src="dada3.jpeg" alt=""></div>
                 <h3 class="text-3xl font-black text-green-400 uppercase">Ci vediamo lì!</h3>
             </div>
         </section>
+
+        <section class="w-full max-w-lg mb-24" data-aos="fade-up">
+            <div class="card-glass p-8 rounded-[2.5rem] border-2 border-neon-blue/30 text-center relative overflow-hidden">
+                <div class="text-4xl mb-4">👑</div>
+                <h3 class="font-montserrat font-black tracking-widest text-blue-400 mb-2 uppercase">Area Riservata</h3>
+                <div class="space-y-4">
+                    <input type="password" id="birthday-pass" class="w-full rounded-2xl p-4 text-center tracking-[0.5em] font-bold text-white bg-black border border-blue-600" placeholder="PASSWORD">
+                    <button id="submit-btn-pass" onclick="checkAccess()" class="w-full bg-blue-600 py-4 rounded-2xl font-black text-white">Accedi alla Notte ⚡️</button>
+                    <p id="error-pass" class="text-red-500 text-xs font-bold mt-2 hidden text-center"></p>
+                </div>
+            </div>
+        </section>
+
     </main>
-    <section class="w-full max-w-lg mb-24" data-aos="fade-up">
-    <div class="card-glass p-8 rounded-[2.5rem] border-2 border-neon-blue/30 text-center relative overflow-hidden">
-        <div class="absolute -top-10 -right-10 w-32 h-32 bg-blue-600/20 blur-3xl rounded-full"></div>
-        
-        <div class="text-4xl mb-4">👑</div>
-        <h3 class="font-montserrat font-black tracking-widest text-blue-400 mb-2 uppercase">Area Riservata</h3>
-        <p class="text-slate-400 text-sm italic mb-6">Solo per la protagonista della serata</p>
-        
-        <div class="space-y-4">
-    <input type="password" id="birthday-pass" 
-           class="w-full rounded-2xl p-4 text-center tracking-[0.5em] font-bold text-white bg-black border border-blue-600" 
-           placeholder="PASSWORD">
-    
-   <button id="submit-btn-pass" onclick="checkAccess()" class="...">
-    Accedi alla Notte ⚡️
-</button>
-    <p id="error-pass" class="text-red-500 text-xs font-bold mt-2 hidden text-center"></p>
-</div>
-</section>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
-    // --- CONFIGURAZIONE LOGICA ACCESSO ---
+    // --- LOGICA ACCESSO ---
     const MAX_TENTATIVI = 3;
-    const TEMPO_BLOCCO_MS = 24 * 60 * 60 * 1000; // 24 ore
+    const TEMPO_BLOCCO_MS = 24 * 60 * 60 * 1000;
     const PASSWORD_SEGRETA = "ZARANOEMIDIEGOSTELLA1211"; 
-    let intervalloCountdown;
 
-    // --- EFFETTI GRAFICI (EMOJI & MOUSE) ---
+    // EMOJI ANIMATE
     function createEmoji() {
         const emojis = ['🔞'];
         const emoji = document.createElement('div');
@@ -219,7 +228,6 @@
         emoji.style.left = Math.random() * 100 + "vw";
         const duration = Math.random() * 3 + 3;
         emoji.style.animationDuration = duration + "s";
-        emoji.style.opacity = Math.random();
         document.body.appendChild(emoji);
         setTimeout(() => { emoji.remove(); }, duration * 1000);
     }
@@ -231,7 +239,6 @@
         glow.style.top = e.clientY + 'px';
     });
 
-    // --- COUNTDOWN EVENTO ---
     function updateCountdown() {
         const target = new Date("April 18, 2026 21:00:00").getTime();
         const now = new Date().getTime();
@@ -243,7 +250,6 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // --- INIZIALIZZAZIONE CARICAMENTO ---
     window.onload = () => {
         AOS.init({ duration: 1200, once: false });
         new Swiper(".mySwiper", {
@@ -253,106 +259,34 @@
             loop: true,
             autoplay: { delay: 2000 }
         });
-        controlloBlocco(); // Controlla se Noemi è bloccata
     };
 
-    // --- GESTIONE RSVP FORM ---
+    // RSVP FORM
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMH2tSRZg69niY8ib7x9v_fwF1KF_XMKpbzkYJA3zo9O2zc22fD0cQwJg8AazOeNtI0Q/exec';
-    const rsvpForm = document.getElementById('rsvp-form');
-    if(rsvpForm) {
-        rsvpForm.addEventListener('submit', e => {
-            e.preventDefault();
-            const btn = document.getElementById('submit-btn');
-            btn.innerHTML = "INVIANDO...";
-            btn.disabled = true;
-            const nome = document.getElementById('nome').value;
-            const partecipa = document.getElementById('partecipa').value;
-            const canzone = document.getElementById('canzone').value;
-            const finalURL = SCRIPT_URL + "?Nome=" + encodeURIComponent(nome) + "&Partecipa=" + encodeURIComponent(partecipa) + "&Canzone=" + encodeURIComponent(canzone);
-            fetch(finalURL, { method: 'POST', mode: 'no-cors' })
-            .then(() => {
-                document.getElementById('rsvp-form').classList.add('hidden');
-                document.getElementById('success-msg').classList.remove('hidden');
-            });
+    document.getElementById('rsvp-form').addEventListener('submit', e => {
+        e.preventDefault();
+        const btn = document.getElementById('submit-btn');
+        btn.innerHTML = "INVIANDO...";
+        btn.disabled = true;
+        const nome = document.getElementById('nome').value;
+        const partecipa = document.getElementById('partecipa').value;
+        const canzone = document.getElementById('canzone').value;
+        const finalURL = SCRIPT_URL + "?Nome=" + encodeURIComponent(nome) + "&Partecipa=" + encodeURIComponent(partecipa) + "&Canzone=" + encodeURIComponent(canzone);
+        fetch(finalURL, { method: 'POST', mode: 'no-cors' }).then(() => {
+            document.getElementById('rsvp-form').classList.add('hidden');
+            document.getElementById('success-msg').classList.remove('hidden');
         });
-    }
-
-    // --- LOGICA AREA RISERVATA (BLOCCO 24H) ---
-    function controlloBlocco() {
-        const oraBlocco = localStorage.getItem('timestampBlocco');
-        if (oraBlocco) {
-            const tempoTrascorso = Date.now() - parseInt(oraBlocco);
-            if (tempoTrascorso < TEMPO_BLOCCO_MS) {
-                avviaTimerVisuale(parseInt(oraBlocco));
-            } else {
-                resettaBlocco();
-            }
-        }
-    }
-
-    function attivaInterfacciaBlocco() {
-        const passInput = document.getElementById('birthday-pass');
-        const submitBtn = document.getElementById('submit-btn-pass'); 
-        if (passInput && submitBtn) {
-            passInput.disabled = true;
-            passInput.placeholder = "BLOCCATO";
-            submitBtn.disabled = true;
-            submitBtn.innerText = "ACCESSO NEGATO 🔒";
-            submitBtn.style.opacity = "0.5";
-        }
-    }
-
-    function avviaTimerVisuale(timestampInizio) {
-        attivaInterfacciaBlocco();
-        const errorMsg = document.getElementById('error-pass');
-        
-        intervalloCountdown = setInterval(() => {
-            const adesso = Date.now();
-            const rimanente = TEMPO_BLOCCO_MS - (adesso - timestampInizio);
-
-            if (rimanente <= 0) {
-                clearInterval(intervalloCountdown);
-                resettaBlocco();
-                location.reload();
-            } else {
-                const ore = Math.floor(rimanente / (1000 * 60 * 60));
-                const minuti = Math.floor((rimanente % (1000 * 60 * 60)) / (1000 * 60));
-                const secondi = Math.floor((rimanente % (1000 * 60)) / 1000);
-                errorMsg.classList.remove('hidden');
-                errorMsg.innerHTML = `Troppi tentativi. Riprova tra:<br><span class="text-xl font-black text-white">${ore}h ${minuti}m ${secondi}s</span>`;
-            }
-        }, 1000);
-    }
-
-    function resettaBlocco() {
-        localStorage.removeItem('timestampBlocco');
-        localStorage.removeItem('tentativiFalliti');
-    }
+    });
 
     function checkAccess() {
         const passInput = document.getElementById('birthday-pass');
-        const errorMsg = document.getElementById('error-pass');
-        let tentativi = parseInt(localStorage.getItem('tentativiFalliti')) || 0;
-
         if (passInput.value.toUpperCase() === PASSWORD_SEGRETA) {
-            resettaBlocco();
             window.location.href = "exclusive-noemi.html";
         } else {
-            tentativi++;
-            localStorage.setItem('tentativiFalliti', tentativi);
-            passInput.animate([{ transform: 'translateX(-5px)' }, { transform: 'translateX(5px)' }, { transform: 'translateX(0)' }], { duration: 300 });
-
-            if (tentativi >= MAX_TENTATIVI) {
-                const oraAttuale = Date.now();
-                localStorage.setItem('timestampBlocco', oraAttuale.toString());
-                avviaTimerVisuale(oraAttuale);
-            } else {
-                errorMsg.innerText = `Password errata! Rimangono ${MAX_TENTATIVI - tentativi} tentativi.`;
-                errorMsg.classList.remove('hidden');
-                passInput.value = "";
-            }
+            alert("Password errata!");
+            passInput.value = "";
         }
     }
 </script>
 </body>
-</html> 
+</html>
